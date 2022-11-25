@@ -45,17 +45,14 @@ export const contactsSlice = createSlice({
       state.status = 'resolved';
       state.isLoading = false;
       state.error = null;
-      console.log(action.payload.data);
-      state.items = action.payload.data;
+      state.items = action.payload;
     },
     [addContactApi.fulfilled](state, action) {
-      console.log("addContactApi.fulfilled");
       state.isLoading = false;
       state.error = null;
       state.items.push(action.payload);
     },
     [deleteContactApi.fulfilled](state, action) {
-      console.log("deleteContactApi.fulfilled");
       state.isLoading = false;
       state.error = null;
       const index = state.items.findIndex(

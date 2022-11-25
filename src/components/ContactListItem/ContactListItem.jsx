@@ -3,13 +3,12 @@ import { useDispatch } from 'react-redux';
 import { deleteContactApi } from '../../redux/operations/operations';
 import { SpanName, SpanNumber, ContactBtn, ContactItem } from './ContactListItem.styled';
 
-export const ContactListItem = ({ item: { id, text } }) => {
+export const ContactListItem = ({ item: { id, name, number } }) => {
   const dispatch = useDispatch();
-  console.log(text.name);
   return (
     <ContactItem>
-      <SpanName>{text.name}</SpanName>
-      <SpanNumber>{text.number}</SpanNumber>
+      <SpanName>{name}</SpanName>
+      <SpanNumber>{number}</SpanNumber>
       <ContactBtn type="button" onClick={() => dispatch(deleteContactApi(id))}>
         Delete
       </ContactBtn>

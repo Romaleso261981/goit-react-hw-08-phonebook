@@ -40,7 +40,7 @@ const ContactForm = () => {
       return;
     }
     event.preventDefault();
-    dispatch(addContactApi({ name, number }));
+    dispatch(addContactApi( {name, number} ));
     setName('');
     setNumber('');
   };
