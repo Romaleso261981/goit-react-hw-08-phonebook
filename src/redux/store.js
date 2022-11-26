@@ -8,7 +8,7 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import { persistedAddContactReducer } from '../tasksSlice';
+import { persistedAddContactReducer } from './tasksSlice';
 
 export const store = configureStore({
   reducer: {
