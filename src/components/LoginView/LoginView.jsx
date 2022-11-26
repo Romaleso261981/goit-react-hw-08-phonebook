@@ -13,6 +13,7 @@ import {
   InputSpanName,
   FormBtn,
   InputForm,
+  Title,
 } from './ContactFormStyle.js';
 
 const ContactForm = () => {
@@ -46,6 +47,8 @@ const ContactForm = () => {
   };
 
   return (
+    <>
+       <Title>Сорінка логіна</Title>
     <FormWrap onSubmit={handleSubmitForm}>
       <InputLabel>
         <InputSpanName>Name</InputSpanName>
@@ -73,6 +76,7 @@ const ContactForm = () => {
       </InputLabel>
       <FormBtn type="submit">Add contact</FormBtn>
     </FormWrap>
+   </>
   );
 };
 

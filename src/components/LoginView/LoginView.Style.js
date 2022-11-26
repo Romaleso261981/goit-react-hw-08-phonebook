@@ -10,6 +10,11 @@ export const ContactItem = styled.li`
   gap: 20px;
 `;
 
+export const Title = styled.h1`
+font-weight: 500;
+font-size: 48;
+text-align: center;
+`;
 export const FormWrap = styled.form`
   margin: auto;
   display: grid;
