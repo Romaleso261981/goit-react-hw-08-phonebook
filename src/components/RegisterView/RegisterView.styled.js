@@ -1,22 +1,57 @@
 import styled from 'styled-components';
 
-export const Label = styled.label`
-  display: block;
-  margin: auto;
-  margin-bottom: 5px;
+export const List = styled.ul`
+  padding: 10px;
+  background-color: grey;
 `;
 
-export const FilterInput = styled.input`
-  display: block;
-  width: 200px;
-  height: 20px;
-  border: 1px solid black;
-  margin: auto;
-  margin-top: 10px;
-  background-color: whitesmoke;
+export const ContactItem = styled.li`
+  display: flex;
+  gap: 20px;
 `;
-export const FilterWrap = styled.div`
-  display: block;
-  text-align: center;
-  margin-top: 10px;
+
+export const Title = styled.h1`
+font-weight: 500;
+font-size: 48;
+text-align: center;
+`;
+export const FormWrap = styled.form`
+  margin: auto;
+  display: grid;
+  padding: 20px;
+  width: 400px;
+  height: auto;
+  background-color: aquamarine;
+`;
+
+
+export const InputLabel = styled.label`
+`;
+
+
+export const InputSpan = styled.label`
+font-size: medium;
+margin-right: 20px;
+`;
+export const InputSpanName = styled.label`
+margin-right: 35px;
+`;
+
+export const InputForm = styled.input`
+margin-bottom: 10px;
+width: 200px;
+height: 20px;
+border: 1px solid black;
+
+`;
+export const FormBtn = styled.button`
+font-weight: 500;
+margin: auto;
+text-align: center;
+padding: 5px;
+width: 100px;
+height: 30px;
+border: 1px solid black;
+border-radius: 5px;
+background-color: white;
 `;
