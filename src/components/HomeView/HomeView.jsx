@@ -13,7 +13,7 @@ import {
   InputSpanName,
   FormBtn,
   InputForm,
-} from './ContactFormStyle.js';
+} from './HomeViewStyle.js';
 
 const ContactForm = () => {
   const [name, setName] = useState('');

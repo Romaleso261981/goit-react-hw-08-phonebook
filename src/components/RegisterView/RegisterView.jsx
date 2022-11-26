@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { filteredContacts } from '../../redux/tasksSlice';
 import { getFilter } from "../../redux/tasksSlice";
-import { Label,FilterInput, FilterWrap } from './Filter.styled';
+import { Label,FilterInput, FilterWrap } from './RegisterView.styled';
 
 const Filter = () => {
   const filter = useSelector(getFilter);
