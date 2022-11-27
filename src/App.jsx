@@ -30,8 +30,8 @@ export default function App() {
         <Layout/>
       <Routes>
         <Route index path="/" element={<HomeView />} />
-        <Route exact path="register" component={ <RegisterView/> } />
-        <Route exact path="login" component={ <LoginView/> } />
+        <Route path="register" element={ <RegisterView /> } />
+        <Route path="login" element={ <LoginView/> } />
         <Route path="*" element={<NotFound />} />
         </Routes>
       </Container>

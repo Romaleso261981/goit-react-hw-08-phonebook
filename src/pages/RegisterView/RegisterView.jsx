@@ -55,7 +55,7 @@ const RegisterView = () => {
         />
       </InputLabel>
       <InputLabel>
-        <InputSpan>Number</InputSpan>
+        <InputSpan>Email</InputSpan>
         <InputForm
           onChange={handleChange}
           type="text"
@@ -67,7 +67,7 @@ const RegisterView = () => {
         />
       </InputLabel>
       <InputLabel>
-        <InputSpan>Number</InputSpan>
+        <InputSpan>Password</InputSpan>
         <InputForm
           onChange={handleChange}
           type="number"
