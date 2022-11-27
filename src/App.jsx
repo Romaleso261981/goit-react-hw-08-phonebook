@@ -3,6 +3,9 @@
 import { Route, Routes } from 'react-router-dom';
 import RegisterView from './pages/RegisterView/RegisterView';
 import LoginView from './pages/LoginView/LoginView';
+import {Navigation} from './pages/HomeView/HomeView';
+import {Layout} from './components/Layout/Layout';
+import {Container} from './components/Container/Container';
 // import ContactListView from './pages/ContactListView/';
 // import HomeView from './pages/HomeView/';
 
@@ -22,11 +25,15 @@ export default function App() {
   return false ? (
     <b>Refreshing user...</b>
   ) : (
+      <Container>
+        <Layout/>
       <Routes>
         {/* <Route exact path='/' component={ HomeView } /> */}
-        <Route exact path='/register' component={ RegisterView } />
-        <Route exact path='/login' component={ LoginView } />
+        <Route index path="/" element={<Navigation />} />
+        <Route exact path='/register' component={ <RegisterView /> } />
+        <Route exact path='/login' component={ <LoginView /> } />
         {/* <Route exact path='/contacts' component={ ContactListView } /> */}
     </Routes>
+      </Container>
   );
 }
