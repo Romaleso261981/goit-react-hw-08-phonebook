@@ -1,10 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-// import { nanoid } from 'nanoid';
-import { addContactApi} from '../../redux/operations/operations';
-import { fetchContact} from '../../redux/operations/operations';
-import { getItems } from '../../redux/tasksSlice';
-import Notiflix from 'notiflix';
+import { useDispatch} from 'react-redux';
+import { fetchContact } from '../../redux/operations/operations';
+import {authOperations} from '../../redux/auth/auth-operations'
 
 import {
   InputLabel,
@@ -16,33 +13,33 @@ import {
 } from './ContactFormStyle.js';
 
 const ContactForm = () => {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
   const dispatch = useDispatch();
-  const items = useSelector(getItems);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   useEffect(() => {
     dispatch(fetchContact());
   }, [dispatch]);
 
-  const handleChange = event => {
-    const { name, value } = event.target;
-    if (name === 'name') {
-      setName(value);
-    } else if (name === 'number') {
-      setNumber(value);
+  const handleChange = ({ target: { name, value } }) => {
+    switch (name) {
+      case 'name':
+        return setName(value);
+      case 'email':
+        return setEmail(value);
+      case 'password':
+        return setPassword(value);
+      default:
+        return;
     }
   };
 
   const handleSubmitForm = event => {
-    if (items.find(item => item.name === name)) {
-      Notiflix.Notify.warning('This contact is already exists');
-      return;
-    }
     event.preventDefault();
-    dispatch(addContactApi({ name, number }));
-    setName('');
-    setNumber('');
+    dispatch(authOperations.register({ name, email, password }));
+    setEmail('');
+    setPassword('');
   };
 
   return (
@@ -63,12 +60,24 @@ const ContactForm = () => {
         <InputSpan>Number</InputSpan>
         <InputForm
           onChange={handleChange}
-          type="tel"
-          name="number"
+          type="text"
+          name="email"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
-          value={number}
+          value={email}
+        />
+      </InputLabel>
+      <InputLabel>
+        <InputSpan>Number</InputSpan>
+        <InputForm
+          onChange={handleChange}
+          type="number"
+          name="password"
+          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+          required
+          value={password}
         />
       </InputLabel>
       <FormBtn type="submit">Add contact</FormBtn>
