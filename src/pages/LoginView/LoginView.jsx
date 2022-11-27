@@ -6,7 +6,6 @@ import {
   InputLabel,
   FormWrap,
   InputSpan,
-  InputSpanName,
   FormBtn,
   InputForm,
 } from './LoginView.styled';
