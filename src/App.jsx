@@ -1,10 +1,10 @@
 // import { useEffect, lazy } from 'react';
 // import { useDispatch } from 'react-redux';
-import { Switch, Route } from 'react-router-dom';
-import AppBar from './components/HomeView/HomeView';
-import FormPage from './components/RegisterView/RegisterView';
-import AppBar from './components/HomeView/HomeView';
-import AppBar from './components/HomeView/HomeView';
+import { Route, Routes } from 'react-router-dom';
+import RegisterView from './pages/RegisterView/RegisterView';
+import LoginView from './pages/LoginView/LoginView';
+// import ContactListView from './pages/ContactListView/';
+// import HomeView from './pages/HomeView/';
 
 // const HomeView = lazy(() => import(''));
 // const RegisterView = lazy(() => import(''));
@@ -19,11 +19,14 @@ export default function App() {
   //   dispatch(refreshUser());
   // }, [dispatch]);
 
-  return true ? (
+  return false ? (
     <b>Refreshing user...</b>
   ) : (
-    <>
-      <AppBar />
-    </>
+      <Routes>
+        {/* <Route exact path='/' component={ HomeView } /> */}
+        <Route exact path='/register' component={ RegisterView } />
+        <Route exact path='/login' component={ LoginView } />
+        {/* <Route exact path='/contacts' component={ ContactListView } /> */}
+    </Routes>
   );
 }

@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
-import { useDispatch} from 'react-redux';
-import { fetchContact } from '../../redux/operations/operations';
-import {authOperations} from '../../redux/auth/auth-operations'
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { register } from '../../redux/auth/auth-operations';
 
 import {
   InputLabel,
@@ -10,17 +9,16 @@ import {
   InputSpanName,
   FormBtn,
   InputForm,
-} from './ContactFormStyle.js';
+} from './RegisterView.styled';
 
-const FormPage = () => {
+const RegisterView = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  useEffect(() => {
-    dispatch(fetchContact());
-  }, [dispatch]);
+  // useEffect(() => {
+  // }, []);
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
@@ -37,7 +35,7 @@ const FormPage = () => {
 
   const handleSubmitForm = event => {
     event.preventDefault();
-    dispatch(authOperations.register({ name, email, password }));
+    dispatch(register({ name, email, password }));
     setEmail('');
     setPassword('');
   };
@@ -85,4 +83,4 @@ const FormPage = () => {
   );
 };
 
-export default FormPage;
+export default RegisterView;
