@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import {Wrap} from './Container.style';
+import {Wrap} from './Container.styled';
 
 
 export const Container = ({children}) => {

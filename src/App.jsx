@@ -1,9 +1,9 @@
 // import { useEffect, lazy } from 'react';
 // import { useDispatch } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Outlet } from 'react-router-dom';
 import RegisterView from './pages/RegisterView/RegisterView';
 import LoginView from './pages/LoginView/LoginView';
-import {Navigation} from './pages/HomeView/HomeView';
+import {HomeView} from './pages/HomeView/HomeView';
 import {Layout} from './components/Layout/Layout';
 import {Container} from './components/Container/Container';
 // import ContactListView from './pages/ContactListView/';
@@ -29,11 +29,12 @@ export default function App() {
         <Layout/>
       <Routes>
         {/* <Route exact path='/' component={ HomeView } /> */}
-        <Route index path="/" element={<Navigation />} />
-        <Route exact path='/register' component={ <RegisterView /> } />
-        <Route exact path='/login' component={ <LoginView /> } />
+        <Route index path="/" element={<HomeView />} />
+        <Route exact path="register" component={ <RegisterView /> } />
+        <Route exact path="login" component={ <LoginView /> } />
         {/* <Route exact path='/contacts' component={ ContactListView } /> */}
-    </Routes>
+        </Routes>
+        <Outlet />
       </Container>
   );
 }

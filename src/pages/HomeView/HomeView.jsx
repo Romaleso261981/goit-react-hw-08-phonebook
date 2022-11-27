@@ -1,12 +1,9 @@
-import {Link, Header} from './HomeView.styled'
+import {Header} from './HomeView.styled'
 
-export function Navigation() {
+export function HomeView() {
     return (
-        <Header>            
-            <nav>
-                <Link to='/'>Home</Link>
-                <Link to='/movies' >Movies</Link>
-            </nav>         
+        <Header>  
+        <h1>Запрошую на нашу головну сторінку</h1>    
         </Header>
     )
 } 
