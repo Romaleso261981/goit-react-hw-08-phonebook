@@ -8,6 +8,7 @@ import {
   InputSpan,
   FormBtn,
   InputForm,
+  InputSpanEmail,
 } from './LoginView.styled';
 
 export const LoginView = () => {
@@ -41,7 +42,7 @@ export const LoginView = () => {
   return (
     <FormWrap onSubmit={handleSubmitForm}>
       <InputLabel>
-        <InputSpan>Email</InputSpan>
+        <InputSpanEmail>Email</InputSpanEmail>
         <InputForm
           onChange={handleChange}
           type="text"
@@ -56,7 +57,7 @@ export const LoginView = () => {
         <InputSpan>Password</InputSpan>
         <InputForm
           onChange={handleChange}
-          type="number"
+          type="password"
           name="password"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"

@@ -29,7 +29,10 @@ font-size: medium;
 margin-right: 20px;
 `;
 export const InputSpanName = styled.label`
-margin-right: 35px;
+margin-right: 45px;
+`;
+export const InputSpanEmail = styled.label`
+margin-right: 49px;
 `;
 
 export const InputForm = styled.input`
