@@ -1,4 +1,4 @@
-import {Link, Header} from './AppBar.Style'
+import {Link, Header} from './Navigation.Style'
 
 export function Navigation() {
     return (

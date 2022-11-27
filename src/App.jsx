@@ -30,8 +30,8 @@ export default function App() {
       <Routes>
         {/* <Route exact path='/' component={ HomeView } /> */}
         <Route index path="/" element={<HomeView />} />
-        <Route exact path="register" component={ <RegisterView /> } />
-        <Route exact path="login" component={ <LoginView /> } />
+        <Route exact path="register" component={ <h1>register</h1> } />
+        <Route exact path="login" component={ <h1>login</h1> } />
         {/* <Route exact path='/contacts' component={ ContactListView } /> */}
         </Routes>
         <Outlet />

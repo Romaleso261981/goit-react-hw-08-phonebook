@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import { Navigation } from '../AppBar/AppBar';
+import { Navigation } from '../Navigation/Navigation';
 
 
 export const Layout = () => {
