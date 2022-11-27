@@ -1,11 +1,12 @@
 // import { useEffect, lazy } from 'react';
 // import { useDispatch } from 'react-redux';
-import { Route, Routes, Outlet } from 'react-router-dom';
+import { Route, Routes} from 'react-router-dom';
 import RegisterView from './pages/RegisterView/RegisterView';
 import LoginView from './pages/LoginView/LoginView';
 import {HomeView} from './pages/HomeView/HomeView';
 import {Layout} from './components/Layout/Layout';
 import {Container} from './components/Container/Container';
+import {NotFound} from './pages/NotFound/NotFound';
 // import ContactListView from './pages/ContactListView/';
 // import HomeView from './pages/HomeView/';
 
@@ -28,13 +29,11 @@ export default function App() {
       <Container>
         <Layout/>
       <Routes>
-        {/* <Route exact path='/' component={ HomeView } /> */}
         <Route index path="/" element={<HomeView />} />
-        <Route exact path="register" component={ <h1>register</h1> } />
-        <Route exact path="login" component={ <h1>login</h1> } />
-        {/* <Route exact path='/contacts' component={ ContactListView } /> */}
+        <Route exact path="register" component={ <RegisterView/> } />
+        <Route exact path="login" component={ <LoginView/> } />
+        <Route path="*" element={<NotFound />} />
         </Routes>
-        <Outlet />
       </Container>
   );
 }
