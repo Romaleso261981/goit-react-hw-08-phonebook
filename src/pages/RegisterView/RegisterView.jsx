@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { register } from '../../redux/auth/auth-operations';
+import { register } from '../../redux/auth/operations';
 
 import {
   InputLabel,
@@ -37,9 +37,12 @@ const RegisterView = () => {
   const handleSubmitForm = event => {
     event.preventDefault();
     dispatch(register({ name, email, password }));
-    setEmail('');
-    setPassword('');
+    // setEmail('');
+    // setPassword('');
+    // setName('')
   };
+
+  
 
   return (
     <FormWrap onSubmit={handleSubmitForm}>
@@ -49,9 +52,6 @@ const RegisterView = () => {
           onChange={handleChange}
           type="text"
           name="name"
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          required
           value={name}
         />
       </InputLabel>
@@ -61,9 +61,6 @@ const RegisterView = () => {
           onChange={handleChange}
           type="text"
           name="email"
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
           value={email}
         />
       </InputLabel>
@@ -71,11 +68,8 @@ const RegisterView = () => {
         <InputSpan>Password</InputSpan>
         <InputForm
           onChange={handleChange}
-          type="password"
+          type="number"
           name="password"
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
           value={password}
         />
       </InputLabel>

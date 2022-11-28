@@ -1,5 +1,6 @@
 // import { useEffect, lazy } from 'react';
 // import { useDispatch } from 'react-redux';
+import { useAuth } from './hooks/useAuth';
 import { Route, Routes} from 'react-router-dom';
 import RegisterView from './pages/RegisterView/RegisterView';
 import LoginView from './pages/LoginView/LoginView';
@@ -17,13 +18,13 @@ import {NotFound} from './pages/NotFound/NotFound';
 
 export default function App() {
   // const dispatch = useDispatch();
-  // const { isRefreshing } = useAuth();
+  const { isRefreshing } = useAuth();
 
   // useEffect(() => {
   //   dispatch(refreshUser());
   // }, [dispatch]);
 
-  return false ? (
+  return isRefreshing ? (
     <b>Refreshing user...</b>
   ) : (
       <Container>
@@ -37,3 +38,4 @@ export default function App() {
       </Container>
   );
 }
+
