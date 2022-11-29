@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import {nanoid} from 'nanoid'
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
@@ -18,11 +17,7 @@ export const register = createAsyncThunk(
   async (credentials, thunkAPI) => {
    console.log(credentials);
     try {
-      const res = await axios.post('/users/signup', {
-        "name": `${nanoid()}Adrian Cross`,
-        "email": `${nanoid()}across@mail.com`,
-        "password": "examplepwd12345"
-      });
+      const res = await axios.post('/users/signup', credentials);
       console.log(res.data.token);
       return res.data;
     } catch (error) {
@@ -37,10 +32,11 @@ export const logIn = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const res = await axios.post('/users/login', credentials);
-      // After successful login, add the token to the HTTP header
       setAuthHeader(res.data.token);
+      console.log(res.data.token);
       return res.data;
     } catch (error) {
+      console.log(error);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
