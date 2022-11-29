@@ -5,7 +5,6 @@ import { SpanName, SpanNumber, ContactBtn, ContactItem } from './ContactItem.sty
 
 export const ContactListItem = ({ item: { id, text } }) => {
   const dispatch = useDispatch();
-  console.log(text.name);
   return (
     <ContactItem>
       <SpanName>{text.name}</SpanName>

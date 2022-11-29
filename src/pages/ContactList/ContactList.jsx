@@ -13,7 +13,6 @@ export const ContactList = () => {
   let data = []
   if (filteredItems !== undefined) {
     data = filteredItems
-    console.log(data);
   }
   return (  
     <List>
