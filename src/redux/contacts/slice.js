@@ -1,41 +1,61 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { logOut } from 'redux/auth/operations';
-import { fetchTasks, addTask, deleteTask } from './operations';
+import { createSlice} from '@reduxjs/toolkit';
+import { persistReducer } from 'redux-persist';
+import { fetchContact, deleteContactApi, addContactApi } from './operations/operations';
+import storage from 'redux-persist/lib/storage';
 
 const handlePending = state => {
   state.isLoading = true;
+  state.error = null;
 };
 
 const handleRejected = (state, action) => {
-  state.isLoading = false;
+  state.isLoading = true;
   state.error = action.payload;
 };
 
-const tasksSlice = createSlice({
-  name: 'tasks',
+
+export const contactsSlice = createSlice({
+  name: 'contacts',
   initialState: {
     items: [],
+    filter: '',
     isLoading: false,
     error: null,
   },
+  
+  reducers: {
+    addContact(state, action) {
+      state.items.push(action.payload);
+    },
+    deleteContact(state, action) {
+      state.items = state.items.filter(item => item.id !== action.payload);
+    },
+    filteredContacts(state, action) {
+      state.filter = action.payload;
+    },
+  },
   extraReducers: {
-    [fetchTasks.pending]: handlePending,
-    [addTask.pending]: handlePending,
-    [deleteTask.pending]: handlePending,
-    [fetchTasks.rejected]: handleRejected,
-    [addTask.rejected]: handleRejected,
-    [deleteTask.rejected]: handleRejected,
-    [fetchTasks.fulfilled](state, action) {
+    [fetchContact.pending]: handlePending,
+    [deleteContactApi.pending]: handlePending,
+    [addContactApi.pending]: handlePending,
+    [fetchContact.rejected]: handleRejected,
+    [deleteContactApi.rejected]: handleRejected,
+    [addContactApi.rejected]: handleRejected,
+    [fetchContact.fulfilled]: (state, action) => {
+      state.status = 'resolved';
       state.isLoading = false;
       state.error = null;
-      state.items = action.payload;
+      console.log(action.payload.data);
+      state.items = action.payload.data;
     },
-    [addTask.fulfilled](state, action) {
+    [addContactApi.fulfilled](state, action) {
+      console.log("addContactApi.fulfilled");
       state.isLoading = false;
       state.error = null;
       state.items.push(action.payload);
     },
-    [deleteTask.fulfilled](state, action) {
+    [deleteContactApi.fulfilled](state, action) {
+      console.log("deleteContactApi.fulfilled");
       state.isLoading = false;
       state.error = null;
       const index = state.items.findIndex(
@@ -43,12 +63,25 @@ const tasksSlice = createSlice({
       );
       state.items.splice(index, 1);
     },
-    [logOut.fulfilled](state) {
-      state.items = [];
-      state.error = null;
-      state.isLoading = false;
-    },
   },
 });
+export const { addContact, deleteContact, filteredContacts } =
+  contactsSlice.actions;
 
-export const tasksReducer = tasksSlice.reducer;
+export const getItems = state => state.contacts.items;
+
+export const getFilter = state => state.contacts.filter;
+
+export const getError = state => state.contacts.error;
+
+export const getIsLoading = state => state.contacts.isLoading;
+
+const persistConfig = {
+  key: 'root',
+  storage,
+};
+
+export const persistedAddContactReducer = persistReducer(
+  persistConfig,
+  contactsSlice.reducer
+);

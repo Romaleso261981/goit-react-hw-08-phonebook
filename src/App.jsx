@@ -19,6 +19,7 @@ import {NotFound} from './pages/NotFound/NotFound';
 export default function App() {
   // const dispatch = useDispatch();
   const { isRefreshing } = useAuth();
+  console.log(isRefreshing);
 
   // useEffect(() => {
   //   dispatch(refreshUser());
