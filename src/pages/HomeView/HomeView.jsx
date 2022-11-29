@@ -1,4 +1,5 @@
 import { Header } from './HomeView.styled';
+import { ContactList } from '../ContactList/ContactList'
 
 export function HomeView() {
   return (
@@ -8,6 +9,7 @@ export function HomeView() {
         <br />
         щоб потрапити на свою сторінку вам потрібно зареєструватись
       </h1>
+      <ContactList />
     </Header>
   );
 }

@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux';
 import { List } from './ContactList.styled';
-import { ContactListItem } from '../../components/ContactListItem/ContactListItem'
-import { getItems } from "../../redux/tasksSlice";
-import { getFilter } from "../../redux/tasksSlice";
+import { ContactListItem } from '../ContactItem/ContactItem'
+import { getItems } from "../../redux/contacts/selectors";
+import { getFilter } from "../../redux/contacts/selectors";
 
 export const ContactList = () => {
   const items = useSelector(getItems);
@@ -17,11 +17,13 @@ export const ContactList = () => {
   }
   return (  
     <List>
-      {data.map(item => {
-        return (
-        <ContactListItem key={item.id} item={item} />
-      )})}
+     {data.map(item => {
+  return (
+  <ContactListItem key={item.id} item={item} />
+)})}
     </List>
   );
 };
 export default ContactList;
+
+
