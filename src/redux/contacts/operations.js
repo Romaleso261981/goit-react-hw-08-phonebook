@@ -1,47 +1,41 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { API } from '../../services/API.js';
 
-axios.defaults.baseURL = 'https://goit-task-manager.herokuapp.com/';
-
-export const fetchContact = createAsyncThunk(
-  'contact/fetchContact',
-  async function (_, { rejectWithValue }) {
-    try {
-      const response = await axios.get(`contact?page=1&limit=10`);
-
-      if (response.statusText.ok) {
-        throw new Error('server error');
-      }
-      const data = response;
-      return data;
-    } catch (error) {
-      return rejectWithValue(error.message);
+export const getContactList = createAsyncThunk(
+    'contacts/getContactList',
+    async (_, thunkAPI) => {        
+        try {
+            const token = thunkAPI.getState().auth.token;
+            const  data  = await API.getContacts(token);
+            return data;
+        } catch (error) {            
+            return thunkAPI.rejectWithValue(error)
+        }
     }
-  }
-);
+)
 
-export const deleteContactApi = createAsyncThunk(
-    "tasks/deleteTask",
-    async (taskId, thunkAPI) => {
-      try {
-          const response = await axios.delete(`/contact/${taskId}`);
-        console.log(`deleteContactApi: ${response}`);
-        return response.data;
-      } catch (e) {
-          console.log();
-        return thunkAPI.rejectWithValue(e.message);
-      }
+export const createContact = createAsyncThunk(
+    'contacts/createContact',
+    async (obj, thunkAPI) => {    
+        const token = thunkAPI.getState().auth.token;        
+        try {
+            const data = await API.addContact(obj, token);            
+            return data;
+        } catch (error) {            
+            return thunkAPI.rejectWithValue(error);
+        }
     }
-  );
+)
 
-export const addContactApi = createAsyncThunk(
-  'tasks/addContactApi',
-  async (text, thunkAPI) => {
-    try {
-      const response = await axios.post('/contact', { text });
-      return response.data;
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
+export const removeContact = createAsyncThunk(
+    'contacts/removeContact',
+    async (id, thunkAPI) => {
+        const token = thunkAPI.getState().auth.token;
+        try {
+            await API.deleteContact(id, token);
+            return id;
+        } catch(error) {
+            return thunkAPI.rejectWithValue(error);
+        }
     }
-  }
-);
+)

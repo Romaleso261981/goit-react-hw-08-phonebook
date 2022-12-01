@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { register } from '../../redux/auth/operations';
+import { registrationUser } from '../../redux/auth/operations';
 
 import {
   InputLabel,
@@ -36,7 +36,7 @@ const RegisterView = () => {
 
   const handleSubmitForm = event => {
     event.preventDefault();
-    dispatch(register({ name, email, password }));
+    dispatch(registrationUser({ name, email, password }));
     // setEmail('');
     // setPassword('');
     // setName('')

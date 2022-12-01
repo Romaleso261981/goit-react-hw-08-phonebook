@@ -1,42 +1,36 @@
-// import { useEffect, lazy } from 'react';
-// import { useDispatch } from 'react-redux';
-import { useAuth } from './hooks/useAuth';
-import { Route, Routes} from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { currentUser } from './redux/auth/operations';
+import { useEffect } from 'react';
+import { useDispatch} from 'react-redux';
+// import { ProtectedRoute } from 'components/ProtectedRoute';
+import { Layout } from './components/Layout/Layout';
+import { ContactList } from './pages/ContactList/ContactList';
+import { LoginView } from './pages/LoginView/LoginView';
 import RegisterView from './pages/RegisterView/RegisterView';
-import LoginView from './pages/LoginView/LoginView';
-import {HomeView} from './pages/HomeView/HomeView';
-import {Layout} from './components/Layout/Layout';
-import {Container} from './components/Container/Container';
-import {NotFound} from './pages/NotFound/NotFound';
-// import ContactListView from './pages/ContactListView/';
-// import HomeView from './pages/HomeView/';
+// import HomePage from 'pages/HomePage';
 
-// const HomeView = lazy(() => import(''));
-// const RegisterView = lazy(() => import(''));
-// const LoginView = lazy(() => import(''));
-// const ContactListView = lazy(() => import(''));
+function App() {
+  const dispatch = useDispatch();
+  // const isAuth = useSelector(state => state.auth.isAuth);
 
-export default function App() {
-  // const dispatch = useDispatch();
-  const { isRefreshing } = useAuth();
-  console.log(isRefreshing);
+  useEffect(() => {
+    console.log("полетів за контактами");
+    dispatch(currentUser());
+  }, [dispatch]);
 
-  // useEffect(() => {
-  //   dispatch(refreshUser());
-  // }, [dispatch]);
-
-  return isRefreshing ? (
-    <b>Refreshing user...</b>
-  ) : (
-      <Container>
-        <Layout/>
+  return (
+    <>
       <Routes>
-        <Route index path="/" element={<HomeView />} />
-        <Route path="register" element={ <RegisterView /> } />
-        <Route path="login" element={ <LoginView/> } />
-        <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Container>
+        <Route path="/" element={<Layout />}>
+          <Route path="/" element={<ContactList/>}></Route>
+          <Route path="/register" element={<RegisterView />}></Route>
+          <Route path="/login" element={<LoginView />}></Route>
+          <Route path="/contacts" element={<>/contacts</>}></Route>
+        </Route>
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </>
   );
 }
 
+export default App;

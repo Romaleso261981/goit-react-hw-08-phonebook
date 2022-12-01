@@ -1,87 +1,85 @@
-import { createSlice} from '@reduxjs/toolkit';
-import { persistReducer } from 'redux-persist';
-import { fetchContact, deleteContactApi, addContactApi } from './operations/operations';
-import storage from 'redux-persist/lib/storage';
-
-const handlePending = state => {
-  state.isLoading = true;
-  state.error = null;
-};
-
-const handleRejected = (state, action) => {
-  state.isLoading = true;
-  state.error = action.payload;
-};
+import { createSlice, createReducer } from '@reduxjs/toolkit'
+import { Loading } from 'notiflix/build/notiflix-loading-aio';
+import { Report } from 'notiflix/build/notiflix-report-aio';
+import { getContactList, createContact, removeContact } from './operations';
 
 
-export const contactsSlice = createSlice({
-  name: 'contacts',
-  initialState: {
-    items: [],
-    filter: '',
-    isLoading: false,
-    error: null,
-  },
-  
-  reducers: {
-    addContact(state, action) {
-      state.items.push(action.payload);
+
+export const filterSlice = createSlice({
+    name: 'filter',
+    initialState: "",   
+    reducers: {
+        filterContacts: (state, { payload }) => {
+            console.log(state)
+            return payload;
+        }
+    }
+})
+
+const itemsReducer = createReducer([],{
+    [getContactList.pending]: (_, { payload }) => { Loading.pulse() },
+    [getContactList.fulfilled]: (state, { payload }) => {
+        Loading.remove();
+        return payload;
     },
-    deleteContact(state, action) {
-      state.items = state.items.filter(item => item.id !== action.payload);
+    [getContactList.rejected]: (_, { payload }) => {
+        console.log(payload)
+        Loading.remove();        
+        Report.failure(`${payload.response.data} ${payload.response.status}`, 'Sorry, an error has occurred ', 'Close', {           
+            width: '500px',
+            svgSize: '50px',
+            backOverlayClickToClose: true,
+            backOverlayColor: 'pink',
+            borderRadius: '10px',
+        });
+    },  
+    
+    [createContact.pending]: (state, { payload }) => { Loading.pulse() },
+    [createContact.fulfilled]: (state, { payload }) => {
+        Loading.remove();
+        return [...state, payload];
     },
-    filteredContacts(state, action) {
-      state.filter = action.payload;
+    [createContact.rejected]: (state, {payload} ) => {
+        Loading.remove();
+        Report.failure(`${payload.response.data} ${payload.response.status}`, 'Sorry, an error has occurred ', 'Close', {           
+            svgSize: '50px',
+            backOverlayClickToClose: true,
+            backOverlayColor: 'pink',
+            borderRadius: '10px',   
+        });       
     },
-  },
-  extraReducers: {
-    [fetchContact.pending]: handlePending,
-    [deleteContactApi.pending]: handlePending,
-    [addContactApi.pending]: handlePending,
-    [fetchContact.rejected]: handleRejected,
-    [deleteContactApi.rejected]: handleRejected,
-    [addContactApi.rejected]: handleRejected,
-    [fetchContact.fulfilled]: (state, action) => {
-      state.status = 'resolved';
-      state.isLoading = false;
-      state.error = null;
-      console.log(action.payload.data);
-      state.items = action.payload.data;
+    [removeContact.pending]: (state, { payload }) => { Loading.pulse() },
+    [removeContact.fulfilled]: (state,  {payload} ) => {
+        const contactList = state.filter(item => {
+            return item.id !== payload;
+        })
+        Loading.remove();
+        console.log(contactList)
+        return contactList;
     },
-    [addContactApi.fulfilled](state, action) {
-      console.log("addContactApi.fulfilled");
-      state.isLoading = false;
-      state.error = null;
-      state.items.push(action.payload);
-    },
-    [deleteContactApi.fulfilled](state, action) {
-      console.log("deleteContactApi.fulfilled");
-      state.isLoading = false;
-      state.error = null;
-      const index = state.items.findIndex(
-        task => task.id === action.payload.id
-      );
-      state.items.splice(index, 1);
-    },
-  },
+    [removeContact.rejected]: (state, { payload }) => { Loading.remove() 
+    Report.failure(`${payload.response.data} ${payload.response.status}`, 'Sorry, an error has occurred ', 'Close', {           
+        svgSize: '50px',
+        backOverlayClickToClose: true,
+        backOverlayColor: 'pink',
+        borderRadius: '10px',   
+    }); 
+    }
+})
+
+export const itemsSlice = createSlice({
+    name: 'slice',
+    initialState: [],
+    extraReducers: {
+
+    }
+})
+
+export const { filterContacts } = filterSlice.actions;
+export const items = itemsReducer;
+export const filter = filterSlice.reducer;
+
+Loading.init({
+    svgSize: '300px',
+    svgColor: 'grey',
 });
-export const { addContact, deleteContact, filteredContacts } =
-  contactsSlice.actions;
-
-export const getItems = state => state.contacts.items;
-
-export const getFilter = state => state.contacts.filter;
-
-export const getError = state => state.contacts.error;
-
-export const getIsLoading = state => state.contacts.isLoading;
-
-const persistConfig = {
-  key: 'root',
-  storage,
-};
-
-export const persistedAddContactReducer = persistReducer(
-  persistConfig,
-  contactsSlice.reducer
-);

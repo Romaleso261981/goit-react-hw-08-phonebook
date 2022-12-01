@@ -1,45 +1,78 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { register, logIn, logOut, refreshUser } from './operations';
+import { createReducer } from '@reduxjs/toolkit';
+import { Loading } from 'notiflix/build/notiflix-loading-aio';
+import {
+  registrationUser,
+  loginUser,
+  currentUser,
+  logoutUser,
+} from './operations';
+
+// import { Report } from 'notiflix/build/notiflix-report-aio';
 
 const initialState = {
-  user: { name: null, email: null },
+  user: {
+    name: null,
+    email: null,
+  },
   token: null,
-  isLoggedIn: false,
-  isRefreshing: false,
+  error: null,
+  isAuth: true,
+  isLoggedIn: true,
+  contactfilter: '',
 };
 
-const authSlice = createSlice({
-  name: 'auth',
-  initialState,
-  extraReducers: {
-    [register.fulfilled](state, action) {
-      console.log([register.fulfilled]);
-      state.user = action.payload.user;
-      state.token = action.payload.token;
-      state.isLoggedIn = true;
-    },
-    [logIn.fulfilled](state, action) {
-      state.user = action.payload.user;
-      state.token = action.payload.token;
-      state.isLoggedIn = true;
-    },
-    [logOut.fulfilled](state) {
-      state.user = { name: null, email: null };
-      state.token = null;
-      state.isLoggedIn = false;
-    },
-    [refreshUser.pending](state) {
-      state.isRefreshing = true;
-    },
-    [refreshUser.fulfilled](state, action) {
-      state.user = action.payload;
-      state.isLoggedIn = true;
-      state.isRefreshing = false;
-    },
-    [refreshUser.rejected](state) {
-      state.isRefreshing = false;
-    },
+export const userReducer = createReducer(initialState, {
+  [registrationUser.pending]: (_, { payload }) => {
+    console.log('pending');
+    Loading.pulse();
+  },
+  [registrationUser.fulfilled]: (state, { payload }) => {
+    console.log('fulfilled', payload);
+    Loading.remove();
+    return { ...state, isAuth: true, ...payload };
+  },
+  [registrationUser.rejected]: (_, { payload }) => {
+    console.log(payload);
+    Loading.remove();
+    // Report.failure(`${payload.response.data} ${payload.response.status}`, 'Sorry, an error has occurred ', 'Close', {
+    //     width: '500px',
+    //     svgSize: '50px',
+    //     backOverlayClickToClose: true,
+    //     backOverlayColor: 'pink',
+    //     borderRadius: '10px',
+  },
+  [loginUser.pending]: (state, { payload }) => {
+    Loading.pulse();
+  },
+  [loginUser.fulfilled]: (state, { payload }) => {
+    console.log(payload);
+    Loading.remove();
+    return { ...state, isAuth: true, ...payload };
+  },
+  [loginUser.rejected]: (state, { payload }) => {
+    Loading.remove();
+  },
+
+  [currentUser.pending]: (state, { payload }) => {
+    Loading.pulse();
+  },
+  [currentUser.fulfilled]: (state, { payload }) => {
+    console.log(payload);
+    Loading.remove();
+    return { ...state, isAuth: true, user: { ...payload } };
+  },
+  [currentUser.rejected]: (state, { payload }) => {
+    Loading.remove();
+  },
+
+  [logoutUser.pending]: (state, { payload }) => {
+    Loading.pulse();
+  },
+  [logoutUser.fulfilled]: (state, { payload }) => {
+    Loading.remove();
+    return { ...state, ...initialState };
+  },
+  [logoutUser.rejected]: (state, { payload }) => {
+    Loading.remove();
   },
 });
-
-export const authReducer = authSlice.reducer;
