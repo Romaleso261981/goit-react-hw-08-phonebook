@@ -77,10 +77,11 @@ export const RegistrationForm = () => {
                 {...register("email", {
                     required: "This field is required",
                     maxLength: 26,
-                    pattern: {
-                        value: /^((([0-9A-Za-z]{1}[-0-9A-z\.]{0,30}[0-9A-Za-z]?)|([0-9А-Яа-я]{1}[-0-9А-я\.]{0,30}[0-9А-Яа-я]?))@([-A-Za-z]{1,}\.){1,}[-A-Za-z]{2,})$/i,
-                        message: "Email must require contain @ and . "
-                } })}
+                    // pattern: {
+                    //     value: /^((([0-9A-Za-z]{1}[-0-9A-z\.]{0,30}[0-9A-Za-z]?)|([0-9А-Яа-я]{1}[-0-9А-я\.]{0,30}[0-9А-Яа-я]?))@([-A-Za-z]{1,}\.){1,}[-A-Za-z]{2,})$/i,
+                    //     message: "Email must require contain @ and . "
+                    // }
+                })}
                 color="secondary"
                 label="Email"
                 error={errors?.email?.message ? true : false}
