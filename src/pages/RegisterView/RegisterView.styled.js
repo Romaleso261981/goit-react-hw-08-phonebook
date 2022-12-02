@@ -14,9 +14,9 @@ export const FormWrap = styled.form`
   margin: auto;
   display: grid;
   padding: 20px;
-  width: 400px;
-  height: auto;
-  background-color: aquamarine;
+  width: 100vw;
+  height: 100vh;
+  border-image-source: image-set();
 `;
 
 

@@ -1,4 +1,4 @@
-import DrawerAppBar from '../UserMenu/UserMenu';
+import UserMenu from '../UserMenu/UserMenu';
 import { AuthNav } from '../AuthNav/AuthNav';
 import { Header } from './AppBar.style';
 import { useSelector } from 'react-redux';
@@ -6,5 +6,5 @@ import { useSelector } from 'react-redux';
 export const AppBar = () => {
   const { isLoggedIn } = useSelector(state => state.auth.isLoggedIn);
 
-  return <Header>{true ? <DrawerAppBar /> : <AuthNav />}</Header>;
+  return <Header>{isLoggedIn ? <UserMenu /> : <AuthNav />}</Header>;
 };

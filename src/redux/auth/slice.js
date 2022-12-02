@@ -1,5 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
+
 import {
   registrationUser,
   loginUser,
@@ -20,6 +21,8 @@ const initialState = {
   isLoggedIn: true,
   contactfilter: '',
 };
+
+
 
 export const userReducer = createReducer(initialState, {
   [registrationUser.pending]: (_, { payload }) => {
