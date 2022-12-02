@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch} from 'react-redux';
 // import { ProtectedRoute } from 'components/ProtectedRoute';
 import { Layout } from './components/Layout/Layout';
+import DrawerAppBar from './components/UserMenu/UserMenu';
 import { ContactList } from './pages/ContactList/ContactList';
 import { LoginView } from './pages/LoginView/LoginView';
 import RegisterView from './pages/RegisterView/RegisterView';
@@ -21,8 +22,8 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="/" element={<ContactList/>}></Route>
+        <Route path="/" element={<DrawerAppBar />}>
+          {/* <Route path="/" element={<ContactList/>}></Route> */}
           <Route path="/register" element={<RegisterView />}></Route>
           <Route path="/login" element={<LoginView />}></Route>
           <Route path="/contacts" element={<>/contacts</>}></Route>
