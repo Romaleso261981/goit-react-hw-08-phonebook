@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ProtectedRoute } from './MUI/components/ProtectedRoute';
 import Header  from './MUI/components/Header/Header';
-// import ContactsPage from 'pages/ContactsPage';
+import ContactsPage from './MUI/pages/ContactsPage/ContactsPage';
 import LoginPage from './MUI/pages/LoginPage/LoginPage';
 import RegisterPage from './MUI/pages/RegistrationForm/RegistrationForm';
 import HomePage from './MUI/pages/HomePage/HomePage';
@@ -44,15 +44,15 @@ function App() {
                       </ProtectedRoute>}>
             </Route>
             <Route path='/login'
-              element={<ProtectedRoute redirectPath='/contacts' isAllowed={!isAuth}>
+              element={<ProtectedRoute   redirectPath='/contacts' isAllowed={!isAuth}>
                         <LoginPage />
                       </ProtectedRoute>}>
             </Route>
-            {/* <Route path='/contacts'
+            <Route path='/contacts'
               element={<ProtectedRoute redirectPath='/login' isAllowed={isAuth}>
                         <ContactsPage />
                       </ProtectedRoute>}>
-            </Route> */}
+            </Route>
           </Route>
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

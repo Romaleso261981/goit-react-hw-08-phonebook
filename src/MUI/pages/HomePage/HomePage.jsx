@@ -30,7 +30,7 @@ const HomePage = () => {
         }} 
         >
             <Typography sx={{ fontSize: 26, textAlign: 'center' }} >
-                Hello, to work on our site you must log in or register.
+                Привіт, щоб ти міг користуватись своєю телефонною книгою тобі потрібно авторизуватись.
             </Typography>
             <Box component="div"
                 sx={{
