@@ -34,7 +34,6 @@ export const currentUser = createAsyncThunk(
         return thunkAPI.rejectWithValue();
         }
         try {
-            console.log(token)
             const data = await API.currentUser(token);
             return data;
         } catch (error) {

@@ -1,14 +1,13 @@
 import { useSelector } from 'react-redux';
-import { List } from './ContactList.styled';
-import { ContactListItem } from '../ContactItem/ContactItem'
+import { List } from './ContactList.style';
+import { ContactForm } from '../../components/ContactForm/ContactForm'
+import { ContactListItem } from '../../pages/ContacItem/ContacItem'
+
 
 export const ContactList = () => {
-  const state = useSelector((state) => state.auth)
-  console.log(state);
-  const user = useSelector((state) => state.auth.user)
-  console.log(user);
-  const filter = useSelector(state => state.auth.contactfilter);
-  const filteredItems = user.filter(item =>
+  const items = useSelector(state => state.contacts.items);
+  const filter = useSelector(state => state.contacts.filter);
+  const filteredItems = items.filter(item =>
     item.name.toLowerCase().includes(filter.toLowerCase())
   );
   let data = []
@@ -17,11 +16,12 @@ export const ContactList = () => {
   }
   return (  
     <List>
-     {data && data.map(item => {
-  return (
-  <ContactListItem key={item.id} item={item} />
-)})}
-    </List>
+       <ContactForm />
+      {data.map(item => {
+      return (
+      <ContactListItem key={item.id} item={item} />
+    )})}
+   </List>
   );
 };
 export default ContactList;

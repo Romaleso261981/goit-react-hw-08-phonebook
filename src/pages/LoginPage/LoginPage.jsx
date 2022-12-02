@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { IconButton, InputAdornment, Typography } from '@mui/material';
-import { loginUser } from '../../../redux/auth/operations';
+import { loginUser } from '../../redux/auth/operations';
 import { useForm } from 'react-hook-form';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';

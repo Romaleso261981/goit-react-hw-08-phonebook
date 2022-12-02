@@ -7,7 +7,7 @@ import { Checkbox, FormControlLabel, IconButton, InputAdornment, Typography } fr
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
-import { registrationUser } from '../../../redux/auth/operations';
+import { registrationUser } from '../../redux/auth/operations';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 

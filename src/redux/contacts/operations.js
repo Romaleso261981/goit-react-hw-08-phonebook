@@ -19,13 +19,15 @@ export const createContact = createAsyncThunk(
     async (obj, thunkAPI) => {    
         const token = thunkAPI.getState().auth.token;        
         try {
-            const data = await API.addContact(obj, token);            
+            const data = await API.addContact(obj, token);   
             return data;
         } catch (error) {            
             return thunkAPI.rejectWithValue(error);
         }
     }
 )
+
+
 
 export const removeContact = createAsyncThunk(
     'contacts/removeContact',

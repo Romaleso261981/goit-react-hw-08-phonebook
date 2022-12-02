@@ -4,12 +4,12 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { currentUser } from './redux/auth/operations';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ProtectedRoute } from './MUI/components/ProtectedRoute';
-import Header  from './MUI/components/Header/Header';
-import ContactsPage from './MUI/pages/ContactsPage/ContactsPage';
-import LoginPage from './MUI/pages/LoginPage/LoginPage';
-import RegisterPage from './MUI/pages/RegistrationForm/RegistrationForm';
-import HomePage from './MUI/pages/HomePage/HomePage';
+import { ProtectedRoute } from './ProtectedRoute';
+import Header  from './components/Header/Header';
+import ContactList from './pages/ContactList/ContactList';
+import LoginPage from './pages/LoginPage/LoginPage';
+import RegisterPage from './pages/RegistrationForm/RegistrationForm';
+import HomePage from './pages/HomePage/HomePage';
 // const HomePage = lazy(() =>
 //   import('pages/HomePage' /* webpackChunkName: "home-page" */)
 // );
@@ -28,6 +28,7 @@ import HomePage from './MUI/pages/HomePage/HomePage';
 function App() {
   const dispatch = useDispatch();
   const isAuth = useSelector(state => state.auth.isAuth);
+console.log(isAuth);
 
   useEffect(() => {
     dispatch(currentUser());
@@ -50,7 +51,7 @@ function App() {
             </Route>
             <Route path='/contacts'
               element={<ProtectedRoute redirectPath='/login' isAllowed={isAuth}>
-                        <ContactsPage />
+                        <ContactList />
                       </ProtectedRoute>}>
             </Route>
           </Route>

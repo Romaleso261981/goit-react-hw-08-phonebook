@@ -13,7 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import ContactPhoneTwoToneIcon from '@mui/icons-material/ContactPhoneTwoTone';
 import { useNavigate, Outlet } from 'react-router-dom'; 
 import { useDispatch, useSelector } from 'react-redux';
-import { logoutUser } from '../../../redux/auth/operations';
+import { logoutUser } from '../../redux/auth/operations';
 // import InsertEmoticonSharpIcon from '@mui/icons-material/InsertEmoticonSharp';
 
 const ResponsiveAppBar = () => {
