@@ -12,14 +12,14 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate, Outlet } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logoutUser } from '../../redux/auth/operations';
+import { logOut } from '../../redux/auth/operations';
 // import InsertEmoticonSharpIcon from '@mui/icons-material/InsertEmoticonSharp';
 
 const ResponsiveAppBar = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const emailUser = useSelector(state => state.auth.user.email);
   const nameUser = useSelector(state => state.auth.user.name);
-  const isAuth = useSelector(state => state.auth.isAuth);
+  const isAuth = useSelector(state => state.auth.user.isAuth);
   const navigate = useNavigate();
   const [navMenu, setNavMenu] = React.useState([]);
   // const [userMenu, setUserMenu] = React.useState([]);
@@ -44,7 +44,7 @@ const ResponsiveAppBar = () => {
   };
 
   const handleLogOut = () => {
-    dispatch(logoutUser());
+    dispatch(logOut());
     handleCloseUserMenu();
   };
 

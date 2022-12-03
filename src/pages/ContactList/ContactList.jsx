@@ -5,8 +5,10 @@ import { Container } from '@mui/material';
 
 
 export const ContactList = () => {
-  const items = useSelector(state => state.contacts.items);
-  const filter = useSelector(state => state.contacts.filter);
+  const i = useSelector(state => state.tasks.items);
+  console.log(i);
+  const items = useSelector(state => state.tasks.items);
+  const filter = useSelector(state => state.tasks.filter);
   const filteredItems = items.filter(item =>
     item.name.toLowerCase().includes(filter.toLowerCase())
   );

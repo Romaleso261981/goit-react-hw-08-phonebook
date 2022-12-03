@@ -1,87 +1,55 @@
-import { createSlice, createReducer } from '@reduxjs/toolkit'
-import { Loading } from 'notiflix/build/notiflix-loading-aio';
-import { Report } from 'notiflix/build/notiflix-report-aio';
-import { getContactList, createContact, removeContact } from './operations';
+import { createSlice } from '@reduxjs/toolkit';
+import { logOut } from 'redux/auth/operations';
+import { fetchTasks, addTask, deleteTask } from './operations';
 
+const handlePending = state => {
+  state.isLoading = true;
+};
 
+const handleRejected = (state, action) => {
+  state.isLoading = false;
+  state.error = action.payload;
+};
 
-export const filterSlice = createSlice({
-    name: 'filter',
-    initialState: "",   
-    reducers: {
-        filterContacts: (state, { payload }) => {
-            console.log(state)
-            return payload;
-        }
-    }
-})
-
-const itemsReducer = createReducer([],{
-    [getContactList.pending]: (_, { payload }) => { Loading.pulse() },
-    [getContactList.fulfilled]: (state, { payload }) => {
-        Loading.remove();
-        return payload;
+const tasksSlice = createSlice({
+  name: 'tasks',
+  initialState: {
+    items: [],
+    isLoading: false,
+    error: null,
+    filter: '',
+  },
+  extraReducers: {
+    [fetchTasks.pending]: handlePending,
+    [addTask.pending]: handlePending,
+    [deleteTask.pending]: handlePending,
+    [fetchTasks.rejected]: handleRejected,
+    [addTask.rejected]: handleRejected,
+    [deleteTask.rejected]: handleRejected,
+    [fetchTasks.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.items = action.payload;
     },
-    [getContactList.rejected]: (_, { payload }) => {
-        console.log(payload)
-        Loading.remove();        
-        Report.failure(`${payload.response.data} ${payload.response.status}`, 'Sorry, an error has occurred ', 'Close', {           
-            width: '500px',
-            svgSize: '50px',
-            backOverlayClickToClose: true,
-            backOverlayColor: 'pink',
-            borderRadius: '10px',
-        });
-    },  
-    
-    [createContact.pending]: (state, { payload }) => {
-        Loading.pulse()
+    [addTask.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.items.push(action.payload);
     },
-    [createContact.fulfilled]: (state, action) => {
-        Loading.remove();
-        return [...state, action.payload];
+    [deleteTask.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const index = state.items.findIndex(
+        task => task.id === action.payload.id
+      );
+      state.items.splice(index, 1);
     },
-    [createContact.rejected]: (state, {payload} ) => {
-        Loading.remove();
-        Report.failure(`${payload.response.data} ${payload.response.status}`, 'Sorry, an error has occurred ', 'Close', {           
-            svgSize: '50px',
-            backOverlayClickToClose: true,
-            backOverlayColor: 'pink',
-            borderRadius: '10px',   
-        });       
+    [logOut.fulfilled](state) {
+      state.items = [];
+      state.error = null;
+      state.isLoading = false;
     },
-    [removeContact.pending]: (state, { payload }) => { Loading.pulse() },
-    [removeContact.fulfilled]: (state,  {payload} ) => {
-        const contactList = state.filter(item => {
-            return item.id !== payload;
-        })
-        Loading.remove();
-        console.log(contactList)
-        return contactList;
-    },
-    [removeContact.rejected]: (state, { payload }) => { Loading.remove() 
-    Report.failure(`${payload.response.data} ${payload.response.status}`, 'Sorry, an error has occurred ', 'Close', {           
-        svgSize: '50px',
-        backOverlayClickToClose: true,
-        backOverlayColor: 'pink',
-        borderRadius: '10px',   
-    }); 
-    }
-})
-
-export const itemsSlice = createSlice({
-    name: 'slice',
-    initialState: [],
-    extraReducers: {
-
-    }
-})
-
-export const { filterContacts } = filterSlice.actions;
-export const items = itemsReducer;
-export const filter = filterSlice.reducer;
-
-Loading.init({
-    svgSize: '300px',
-    svgColor: 'grey',
+  },
 });
+
+export const tasksReducer = tasksSlice.reducer;

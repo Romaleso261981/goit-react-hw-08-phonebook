@@ -1,14 +1,14 @@
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { Routes, Route, Navigate } from "react-router-dom";
-import { currentUser } from './redux/auth/operations';
+import { refreshUser } from './redux/auth/operations';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ProtectedRoute } from './ProtectedRoute';
 import Header  from './components/Header/Header';
 import ContactList from './pages/ContactList/ContactList';
 import LoginPage from './pages/LoginPage/LoginPage';
-import RegisterPage from './pages/RegistrationForm/RegistrationForm';
+import {RegisterForm} from './pages/RegistrationForm/RegistrationForm';
 // import HomePage from './pages/HomePage/HomePage';
 import { blue } from '@mui/material/colors';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -37,11 +37,12 @@ const theme = createTheme({
 
 function App() {
   const dispatch = useDispatch();
-  const isAuth = useSelector(state => state.auth.isAuth);
-  const isRegister = useSelector(state => state.auth.isRegister);
+  // const isLogin = useSelector(state => state.auth.isLogin);
+  // const isRegister = useSelector(state => state.tasks.items.isRegister);
+  const isRegister = false;
 
   useEffect(() => {
-    dispatch(currentUser());
+    dispatch(refreshUser());
   }, [dispatch]);
 
     return (
@@ -51,16 +52,16 @@ function App() {
             {/* <Route path='/' element={<HomePage />}></Route> */}
             <Route path='/register'
               element={<ProtectedRoute redirectPath='/login' isAllowed={!isRegister}>
-                        <RegisterPage />
+                        <RegisterForm />
                       </ProtectedRoute>}>
             </Route>
             <Route path='/login'
-              element={<ProtectedRoute   redirectPath='/contacts' isAllowed={!isAuth}>
+              element={<ProtectedRoute   redirectPath='/contacts' isAllowed={!isRegister}>
                         <LoginPage />
                       </ProtectedRoute>}>
             </Route>
             <Route path='/contacts'
-              element={<ProtectedRoute redirectPath='/login' isAllowed={isAuth}>
+              element={<ProtectedRoute redirectPath='/login' isAllowed={isRegister}>
                         <ContactList />
                       </ProtectedRoute>}>
             </Route>
@@ -90,7 +91,7 @@ export default App;
 
 // function App() {
 //   const dispatch = useDispatch();
-//   // const isAuth = useSelector(state => state.auth.isAuth);
+//   // const isLogin = useSelector(state => state.auth.isLogin);
 
 //   useEffect(() => {
 //     console.log("полетів за контактами");

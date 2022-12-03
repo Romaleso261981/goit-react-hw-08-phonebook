@@ -1,6 +1,6 @@
 import { Notify } from 'notiflix';
 import { useSelector, useDispatch } from 'react-redux';
-import { createContact } from '../../redux/contacts/operations';
+import { addTask } from '../../redux/contacts/operations';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -9,7 +9,7 @@ import { Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 
 export function ContactForm(props) {
-  const contacts = useSelector(state => state.contacts.items);
+  const contacts = useSelector(state => state.tasks.items);
   const dispatch = useDispatch();
 
   const {
@@ -29,7 +29,7 @@ export function ContactForm(props) {
     if (contacts.find(contact => contact.name === event.name)) {
       Notify.warning(`${event.name} is already in contacts`, { color: 'red' });
     } else {
-      dispatch(createContact(event));
+      dispatch(addTask(event));
       reset();
     }
   };

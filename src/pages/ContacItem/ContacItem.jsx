@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { removeContact } from '../../redux/contacts/operations';
+import { deleteTask } from '../../redux/contacts/operations';
 import { ListItem } from '@mui/material';
 // import { ButtonBase } from '@mui/material';
 import { Button } from '@mui/material';
@@ -12,7 +12,7 @@ export const ContactListItem = ({ item: { id, name, number } }) => {
     <ListItem align="center" size="medium">
       <SpanName>{name}</SpanName>
       <SpanNumber>{number}</SpanNumber>
-      <Button size='large' color='error' type="button" onClick={() => dispatch(removeContact(id))}>
+      <Button size='large' color='error' type="button" onClick={() => dispatch(deleteTask(id))}>
         Delete
       </Button>
     </ListItem>
