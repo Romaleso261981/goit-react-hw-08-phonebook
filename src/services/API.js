@@ -37,6 +37,8 @@ async function getContacts(token) {
             Authorization: token,
         },
     })
+    console.log("getContacts");
+    console.log(response.data);
     return response.data
 }
 

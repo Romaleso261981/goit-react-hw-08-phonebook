@@ -17,31 +17,29 @@ const initialState = {
   },
   token: null,
   error: null,
-  isAuth: true,
+  isAuth: false,
+  isRegister: false,
   isLoggedIn: true,
   contactfilter: '',
 };
 
-
-
 export const userReducer = createReducer(initialState, {
   [registrationUser.pending]: (_, { payload }) => {
-    console.log('pending');
     Loading.pulse();
   },
   [registrationUser.fulfilled]: (state, { payload }) => {
-    console.log('fulfilled', payload);
     Loading.remove();
-    return { ...state, isAuth: true, ...payload };
+    return { ...state, isRegister: true, ...payload };
   },
   [registrationUser.rejected]: (_, { payload }) => {
     Loading.remove();
   },
   [loginUser.pending]: (state, { payload }) => {
+    console.log(loginUser.pending);
     Loading.pulse();
   },
   [loginUser.fulfilled]: (state, { payload }) => {
-    console.log(payload);
+    console.log(state.isAuth);
     Loading.remove();
     return { ...state, isAuth: true, ...payload };
   },
@@ -61,13 +59,13 @@ export const userReducer = createReducer(initialState, {
   },
 
   [logoutUser.pending]: (state, { payload }) => {
-    console.log("logoutUser.pending");
+    console.log('logoutUser.pending');
     Loading.pulse();
   },
   [logoutUser.fulfilled]: (state, { payload }) => {
     Loading.remove();
-    console.log("logoutUser.fulfilled");
-    return { ...state, isAuth: false};
+    console.log('logoutUser.fulfilled');
+    return { ...state, isAuth: false, isRegister: false };
   },
   [logoutUser.rejected]: (state, { payload }) => {
     Loading.remove();

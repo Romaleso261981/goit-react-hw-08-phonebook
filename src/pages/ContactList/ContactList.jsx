@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
-import { List } from './ContactList.style';
 import { ContactForm } from '../../components/ContactForm/ContactForm'
 import { ContactListItem } from '../../pages/ContacItem/ContacItem'
+import { Container } from '@mui/material';
 
 
 export const ContactList = () => {
@@ -15,13 +15,13 @@ export const ContactList = () => {
     data = filteredItems
   }
   return (  
-    <List>
+    <Container maxWidth="lg">
        <ContactForm />
       {data.map(item => {
       return (
       <ContactListItem key={item.id} item={item} />
     )})}
-   </List>
+    </Container>
   );
 };
 export default ContactList;

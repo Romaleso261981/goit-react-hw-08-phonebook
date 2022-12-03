@@ -35,13 +35,10 @@ const itemsReducer = createReducer([],{
     },  
     
     [createContact.pending]: (state, { payload }) => {
-        console.log(state);
         Loading.pulse()
     },
     [createContact.fulfilled]: (state, action) => {
         Loading.remove();
-        console.log(state);
-        // state.items.push(payload);
         return [...state, action.payload];
     },
     [createContact.rejected]: (state, {payload} ) => {

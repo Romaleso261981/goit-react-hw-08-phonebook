@@ -1,18 +1,21 @@
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { removeContact } from '../../redux/contacts/operations';
-import { SpanName, SpanNumber, ContactBtn, ContactItem } from './ContactItem.styled';
+import { ListItem } from '@mui/material';
+// import { ButtonBase } from '@mui/material';
+import { Button } from '@mui/material';
+import { SpanName, SpanNumber } from './ContactItem.styled';
 
 export const ContactListItem = ({ item: { id, name, number } }) => {
   const dispatch = useDispatch();
   return (
-    <ContactItem>
+    <ListItem align="center" size="medium">
       <SpanName>{name}</SpanName>
       <SpanNumber>{number}</SpanNumber>
-      <ContactBtn type="button" onClick={() => dispatch(removeContact(id))}>
+      <Button size='large' color='error' type="button" onClick={() => dispatch(removeContact(id))}>
         Delete
-      </ContactBtn>
-    </ContactItem>
+      </Button>
+    </ListItem>
   );
 };
 

@@ -9,7 +9,9 @@ import Header  from './components/Header/Header';
 import ContactList from './pages/ContactList/ContactList';
 import LoginPage from './pages/LoginPage/LoginPage';
 import RegisterPage from './pages/RegistrationForm/RegistrationForm';
-import HomePage from './pages/HomePage/HomePage';
+// import HomePage from './pages/HomePage/HomePage';
+import { blue } from '@mui/material/colors';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 // const HomePage = lazy(() =>
 //   import('pages/HomePage' /* webpackChunkName: "home-page" */)
 // );
@@ -25,22 +27,30 @@ import HomePage from './pages/HomePage/HomePage';
 //   import('../pages/LoginPage' /* webpackChunkName: "login-page" */)
 // );
 
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: blue[700],
+    },
+  },
+});
+
 function App() {
   const dispatch = useDispatch();
   const isAuth = useSelector(state => state.auth.isAuth);
-console.log(isAuth);
+  const isRegister = useSelector(state => state.auth.isRegister);
 
   useEffect(() => {
     dispatch(currentUser());
   }, [dispatch]);
 
     return (
-      <>        
+      <ThemeProvider theme={theme}>        
         <Routes>          
           <Route path='/' element={<Header />}>
-            <Route path='/' element={<HomePage />}></Route>
+            {/* <Route path='/' element={<HomePage />}></Route> */}
             <Route path='/register'
-              element={<ProtectedRoute redirectPath='/contacts' isAllowed={!isAuth}>
+              element={<ProtectedRoute redirectPath='/login' isAllowed={!isRegister}>
                         <RegisterPage />
                       </ProtectedRoute>}>
             </Route>
@@ -58,7 +68,7 @@ console.log(isAuth);
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
         <ToastContainer />
-      </>
+      </ThemeProvider>
     );
   }
 

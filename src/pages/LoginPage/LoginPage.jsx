@@ -13,12 +13,14 @@ import Visibility from '@mui/icons-material/Visibility';
 export const LogIn = () => {
     const dispatch = useDispatch();
     const [showPassword, setShowPassword] = useState(false);
-    const { register, handleSubmit, reset, formState: { errors } } = useForm({
+    const { register, reset, formState: { errors } } = useForm({
         mode: 'onChange',
 });
 
     const onSubmit = userData => {
+        console.log("onSubmit");
         dispatch(loginUser(userData))
+        console.log("onSubmit");
         reset();
     };
 
@@ -29,7 +31,7 @@ export const LogIn = () => {
     return (
         <Box          
         component="form"
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={onSubmit}
         sx={{
             '& > :not(style)': { mb: 2, width: '100%' },
             maxWidth: 400,

@@ -18,8 +18,9 @@ export const loginUser = createAsyncThunk(
     async (userData, thunkAPI) => {
         try {
             const data = await API.loginUser(userData);
+            console.log('Токен невірний');
             return data;
-        } catch (error) {
+                    } catch (error) {
             return thunkAPI.rejectWithValue(error);
         }
     }
