@@ -22,6 +22,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               Width: '100wv',
               Height: '500px',
               backgroundImage: 'url(https://source.unsplash.com/random)',
+              backgroundSize: 'cover',
             }}
           >
             <App />
