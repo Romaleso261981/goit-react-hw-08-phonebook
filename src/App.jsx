@@ -50,39 +50,48 @@ function App() {
   }, [dispatch]);
 
   return (
-    <ThemeProvider theme={theme}>
-      <Routes>
-        <Route path="/" element={<Header />}>
-          <Route path="/" element={<HomePage />}></Route>
-          <Route
-            path="/register"
-            element={
-              <ProtectedRoute redirectPath="/login" isAllowed={!isRegister}>
-                <RegistrationForm />
-              </ProtectedRoute>
-            }
-          ></Route>
-          <Route
-            path="/login"
-            element={
-              <ProtectedRoute redirectPath="/contacts" isAllowed={!isLogin}>
-                <LoginPage />
-              </ProtectedRoute>
-            }
-          ></Route>
-          <Route
-            path="/contacts"
-            element={
-              <ProtectedRoute redirectPath="/login" isAllowed={isLogin}>
-                <ContactList />
-              </ProtectedRoute>
-            }
-          ></Route>
-        </Route>
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-      <ToastContainer />
-    </ThemeProvider>
+    <div
+      style={{
+        Width: '100wv',
+        Height: '500px',
+        backgroundImage: 'url(https://source.unsplash.com/random)',
+        backgroundSize: 'cover',
+      }}
+    >
+      <ThemeProvider theme={theme}>
+        <Routes>
+          <Route path="/" element={<Header />}>
+            <Route path="/" element={<HomePage />}></Route>
+            <Route
+              path="/register"
+              element={
+                <ProtectedRoute redirectPath="/login" isAllowed={!isRegister}>
+                  <RegistrationForm />
+                </ProtectedRoute>
+              }
+            ></Route>
+            <Route
+              path="/login"
+              element={
+                <ProtectedRoute redirectPath="/contacts" isAllowed={!isLogin}>
+                  <LoginPage />
+                </ProtectedRoute>
+              }
+            ></Route>
+            <Route
+              path="/contacts"
+              element={
+                <ProtectedRoute redirectPath="/login" isAllowed={isLogin}>
+                  <ContactList />
+                </ProtectedRoute>
+              }
+            ></Route>
+          </Route>
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+        <ToastContainer />
+      </ThemeProvider>
+    </div>
   );
 }
 
