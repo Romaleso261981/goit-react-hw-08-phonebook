@@ -3,7 +3,7 @@ import { ToastContainer } from 'react-toastify';
 import { Routes, Route, Navigate } from "react-router-dom";
 import { refreshUser } from './redux/auth/operations';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { ProtectedRoute } from './ProtectedRoute';
 import Header  from './components/Header/Header';
 import ContactList from './pages/ContactList/ContactList';
