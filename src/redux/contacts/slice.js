@@ -3,10 +3,12 @@ import { logOut } from 'redux/auth/operations';
 import { fetchTasks, addTask, deleteTask } from './operations';
 
 const handlePending = state => {
+  console.log('handlePending');
   state.isLoading = true;
 };
 
 const handleRejected = (state, action) => {
+  console.log('handleRejected');
   state.isLoading = false;
   state.error = action.payload;
 };

@@ -29,13 +29,11 @@ const authSlice = createSlice({
       state.isLogin = false;
       state.isRegister = false;
     },
-    [refreshUser.pending](state) {
-    },
+    [refreshUser.pending](state) {},
     [refreshUser.fulfilled](state, action) {
       state.user = action.payload;
     },
-    [refreshUser.rejected](state) {
-    },
+    [refreshUser.rejected](state) {},
   },
 });
 
