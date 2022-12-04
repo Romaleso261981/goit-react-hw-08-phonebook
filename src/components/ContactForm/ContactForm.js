@@ -26,6 +26,7 @@ export function ContactForm(props) {
   });
 
   const onSubmit = event => {
+    
     if (contacts.find(contact => contact.name === event.name)) {
       Notify.warning(`${event.name} is already in contacts`, { color: 'red' });
     } else {

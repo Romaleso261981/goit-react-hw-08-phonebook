@@ -3,12 +3,13 @@ import { ToastContainer } from 'react-toastify';
 import { Routes, Route, Navigate } from "react-router-dom";
 import { refreshUser } from './redux/auth/operations';
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useDispatch} from 'react-redux';
 import { ProtectedRoute } from './ProtectedRoute';
 import Header  from './components/Header/Header';
 import ContactList from './pages/ContactList/ContactList';
-import LoginPage from './pages/LoginPage/LoginPage';
-import {RegisterForm} from './pages/RegistrationForm/RegistrationForm';
+import {LoginPage} from './pages/LoginPage/LoginPage';
+import {RegistrationForm} from './pages/RegistrationForm/RegistrationForm';
 // import HomePage from './pages/HomePage/HomePage';
 import { blue } from '@mui/material/colors';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -37,9 +38,13 @@ const theme = createTheme({
 
 function App() {
   const dispatch = useDispatch();
-  // const isLogin = useSelector(state => state.auth.isLogin);
-  // const isRegister = useSelector(state => state.tasks.items.isRegister);
-  const isRegister = true;
+  const isLogin = useSelector(state => state.auth.isLogin);
+  const isRegister = useSelector(state => {
+    console.log(`isLogin: ${state.auth.isLogin}`);
+    console.log(`isRegister: ${state.auth.isRegister}`);
+    return state.auth.isRegister
+  });
+  // const isRegister = false;
 
   useEffect(() => {
     dispatch(refreshUser());
@@ -52,16 +57,16 @@ function App() {
             {/* <Route path='/' element={<HomePage />}></Route> */}
             <Route path='/register'
               element={<ProtectedRoute redirectPath='/login' isAllowed={!isRegister}>
-                        <RegisterForm />
+                        <RegistrationForm />
                       </ProtectedRoute>}>
             </Route>
             <Route path='/login'
-              element={<ProtectedRoute   redirectPath='/contacts' isAllowed={!isRegister}>
+              element={<ProtectedRoute   redirectPath='/contacts' isAllowed={!isLogin}>
                         <LoginPage />
                       </ProtectedRoute>}>
             </Route>
             <Route path='/contacts'
-              element={<ProtectedRoute redirectPath='/login' isAllowed={isRegister}>
+              element={<ProtectedRoute redirectPath='/login' isAllowed={isLogin}>
                         <ContactList />
                       </ProtectedRoute>}>
             </Route>

@@ -10,15 +10,14 @@ import SaveIcon from '@mui/icons-material/Save';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
 
-export const LogIn = () => {
+export const LoginPage = () => {
     const dispatch = useDispatch();
     const [showPassword, setShowPassword] = useState(false);
-    const { register, reset, formState: { errors } } = useForm({
+    const { register, handleSubmit, reset, formState: { errors } } = useForm({
         mode: 'onChange',
 });
 
     const onSubmit = userData => {
-        console.log("userData");
         dispatch(logIn(userData))
         reset();
     };
@@ -30,7 +29,7 @@ export const LogIn = () => {
     return (
         <Box          
         component="form"
-        onSubmit={onSubmit}
+        onSubmit={handleSubmit(onSubmit)}
         sx={{
             '& > :not(style)': { mb: 2, width: '100%' },
             maxWidth: 400,
@@ -50,18 +49,12 @@ export const LogIn = () => {
             sx={{color: 'rgb(194, 120, 118)',width: '80%'}}
             {...register("email", {
                 required: "This field is required",
-                maxLength: 20,
-                // pattern: {
-                //     value: /^((([0-9A-Za-z]{1}[-0-9A-z\.]{0,30}[0-9A-Za-z]?)|([0-9А-Яа-я]{1}[-0-9А-я\.]{0,30}[0-9А-Яа-я]?))@([-A-Za-z]{1,}\.){1,}[-A-Za-z]{2,})$/i,
-                //     message: "Email must require contain @ and . "
-                // }
-            })}
+                maxLength: 20,})}
             label="Email"
             error={errors?.email?.message ? true : false}
             helperText={errors?.email?.message}
             autoFocus
             required
-            // pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
         />
         <TextField
             {...register("password", {
@@ -107,4 +100,3 @@ export const LogIn = () => {
     );
 
 }
-export default LogIn;
