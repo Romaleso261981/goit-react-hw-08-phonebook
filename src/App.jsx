@@ -10,9 +10,10 @@ import Header from './components/Header/Header';
 import ContactList from './pages/ContactList/ContactList';
 import { LoginPage } from './pages/LoginPage/LoginPage';
 import { RegistrationForm } from './pages/RegistrationForm/RegistrationForm';
-// import HomePage from './pages/HomePage/HomePage';
+import HomePage from './pages/HomePage/HomePage';
 import { blue } from '@mui/material/colors';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+
 // const HomePage = lazy(() =>
 //   import('pages/HomePage' /* webpackChunkName: "home-page" */)
 // );
@@ -52,6 +53,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Routes>
         <Route path="/" element={<Header />}>
+          <Route path="/" element={<HomePage />}></Route>
           <Route
             path="/register"
             element={

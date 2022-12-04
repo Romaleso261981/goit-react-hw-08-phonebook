@@ -4,7 +4,7 @@ import { ContactListItem } from '../../pages/ContacItem/ContacItem';
 import { Container } from '@mui/material';
 
 export const ContactList = () => {
-  const i = useSelector(state => state.tasks);
+  const i = useSelector(state => state.tasks.items);
   console.log(i);
   const items = useSelector(state => state.tasks.items);
   const filter = useSelector(state => state.tasks.filter);

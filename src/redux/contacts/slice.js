@@ -8,7 +8,7 @@ const handlePending = state => {
 };
 
 const handleRejected = (state, action) => {
-  console.log('handleRejected');
+  console.log(action);
   state.isLoading = false;
   state.error = action.payload;
 };
@@ -34,6 +34,7 @@ const tasksSlice = createSlice({
       state.items = action.payload;
     },
     [addTask.fulfilled](state, action) {
+      console.log(state.token);
       state.isLoading = false;
       state.error = null;
       state.items.push(action.payload);

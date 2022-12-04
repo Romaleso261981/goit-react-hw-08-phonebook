@@ -24,10 +24,8 @@ export const registerUser = createAsyncThunk(
       const res = await axios.post('/users/signup', credentials);
       // After successful registration, add the token to the HTTP header
       setAuthHeader(res.data.token);
-      console.log(res.data.token);
       return res.data;
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -77,6 +75,7 @@ export const refreshUser = createAsyncThunk(
     const persistedToken = state.auth.token;
 
     if (persistedToken === null) {
+      console.log('persistedToken === null');
       // If there is no token, exit without performing any request
       return thunkAPI.rejectWithValue('Unable to fetch user');
     }
@@ -84,7 +83,8 @@ export const refreshUser = createAsyncThunk(
     try {
       // If there is a token, add it to the HTTP header and perform the request
       setAuthHeader(persistedToken);
-      const res = await axios.get('/users/me');
+      const res = await axios.get('/users/current');
+      console.log(res.data);
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

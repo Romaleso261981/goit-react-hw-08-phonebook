@@ -5,8 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import { store, persistor } from './redux/store';
-import Container from '@mui/material/Container';
-
+import { Paper } from '@mui/material';
 
 const basename =
   process.env.NODE_ENV !== 'production'
@@ -18,9 +17,15 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter basename={basename}>
-        <Container maxWidth="xxl" >
+          <Paper
+            style={{
+              Width: '100wv',
+              Height: '500px',
+              backgroundImage: 'url(https://source.unsplash.com/random)',
+            }}
+          >
             <App />
-            </Container>
+          </Paper>
         </BrowserRouter>
       </PersistGate>
     </Provider>

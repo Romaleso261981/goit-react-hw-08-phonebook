@@ -32,6 +32,9 @@ const authSlice = createSlice({
     [refreshUser.pending](state) {},
     [refreshUser.fulfilled](state, action) {
       state.user = action.payload;
+      state.token = action.payload.token;
+      state.isLogin = true;
+      state.isRegister = true;
     },
     [refreshUser.rejected](state) {},
   },
