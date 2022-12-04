@@ -39,7 +39,7 @@ function App() {
   const dispatch = useDispatch();
   // const isLogin = useSelector(state => state.auth.isLogin);
   // const isRegister = useSelector(state => state.tasks.items.isRegister);
-  const isRegister = false;
+  const isRegister = true;
 
   useEffect(() => {
     dispatch(refreshUser());
