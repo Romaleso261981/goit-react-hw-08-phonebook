@@ -2,17 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 // import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { getContactList, createContact, removeContact } from './operations';
 
-export const filterSlice = createSlice({
-  name: 'filter',
-  initialState: '',
-  reducers: {
-    filterContacts: (state, { payload }) => {
-      console.log(state);
-      return payload;
-    },
-  },
-});
-
 const handlePending = state => {
   state.isLoading = true;
 };
@@ -21,6 +10,16 @@ const handleRejected = (state, action) => {
   state.isLoading = false;
   state.error = action.payload;
 };
+
+export const filterSlice = createSlice({
+  name: 'filter',
+  initialState: '',
+  reducers: {
+    filterContacts: (_, { payload }) => {
+      return payload;
+    },
+  },
+});
 
 const tasksSlice = createSlice({
   name: 'tasks',
