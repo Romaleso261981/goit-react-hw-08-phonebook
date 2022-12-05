@@ -11,7 +11,7 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { tasksReducer } from './contacts/slice';
-import { authReducer } from './auth/slice';
+import { userReducer } from './auth/slice';
 
 const middleware = [
   ...getDefaultMiddleware({
@@ -30,7 +30,7 @@ const authPersistConfig = {
 
 export const store = configureStore({
   reducer: {
-    auth: persistReducer(authPersistConfig, authReducer),
+    auth: persistReducer(authPersistConfig, userReducer),
     tasks: tasksReducer,
   },
   middleware,

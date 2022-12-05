@@ -3,12 +3,10 @@ import { useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
-import {
-  Typography,
-} from '@mui/material';
+import { Typography } from '@mui/material';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import { useForm } from 'react-hook-form';
-import { registerUser } from '../../redux/auth/operations';
+import { registrationUser } from '../../redux/auth/operations';
 
 export const RegistrationForm = () => {
   const dispatch = useDispatch();
@@ -28,7 +26,7 @@ export const RegistrationForm = () => {
   });
 
   const onSubmit = dataUser => {
-    dispatch(registerUser(dataUser));
+    dispatch(registrationUser(dataUser));
     reset();
   };
 

@@ -12,7 +12,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate, Outlet } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logOut } from '../../redux/auth/operations';
+import { logoutUser } from '../../redux/auth/operations';
 // import InsertEmoticonSharpIcon from '@mui/icons-material/InsertEmoticonSharp';
 
 const ResponsiveAppBar = () => {
@@ -44,7 +44,7 @@ const ResponsiveAppBar = () => {
   };
 
   const handleLogOut = () => {
-    dispatch(logOut());
+    dispatch(logoutUser());
     handleCloseUserMenu();
   };
 

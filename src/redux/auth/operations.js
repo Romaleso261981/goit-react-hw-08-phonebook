@@ -1,92 +1,69 @@
-import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { API } from '../../services/API.js';
+import { Loading } from 'notiflix/build/notiflix-loading-aio';
 
-axios.defaults.baseURL = 'https://goit-task-manager.herokuapp.com/';
-
-// Utility to add JWT
-const setAuthHeader = token => {
-  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-};
-
-// Utility to remove JWT
-const clearAuthHeader = () => {
-  axios.defaults.headers.common.Authorization = '';
-};
-
-/*
- * POST @ /users/signup
- * body: { name, email, password }
- */
-export const registerUser = createAsyncThunk(
-  'auth/registerUser',
-  async (credentials, thunkAPI) => {
+export const registrationUser = createAsyncThunk(
+  'user/registrationUser',
+  async (userData, thunkAPI) => {
     try {
-      const res = await axios.post('users/signup', credentials);
-      // After successful registration, add the token to the HTTP header
-      setAuthHeader(res.data.token);
-      return res.data;
+      Loading.pulse();
+      const data = await API.signupUser(userData);
+      Loading.remove();
+      return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      Loading.remove();
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
 
-/*
- * POST @ /users/login
- * body: { email, password }
- */
-export const logIn = createAsyncThunk(
-  'auth/logIn',
-  async (credentials, thunkAPI) => {
+export const loginUser = createAsyncThunk(
+  'user/loginUser',
+  async (userData, thunkAPI) => {
     try {
-      const res = await axios.post('users/login', credentials);
-      // After successful login, add the token to the HTTP header
-      setAuthHeader(res.data.token);
-      return res.data;
+      Loading.pulse();
+      const data = await API.loginUser(userData);
+      Loading.remove();
+      return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      Loading.remove();
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
 
-/*
- * POST @ /users/logout
- * headers: Authorization: Bearer token
- */
-export const logOut = createAsyncThunk('users/logout', async (_, thunkAPI) => {
-  try {
-    await axios.post('users/logout');
-    // After a successful logout, remove the token from the HTTP header
-    clearAuthHeader();
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
-  }
-});
-
-/*
- * GET @ /users/current
- * headers: Authorization: Bearer token
- */
-export const refreshUser = createAsyncThunk(
-  'auth/refreshUser',
+export const currentUser = createAsyncThunk(
+  'user/currentUser',
   async (_, thunkAPI) => {
-    // Reading the token from the state via getState()
-    const state = thunkAPI.getState();
-    const persistedToken = state.auth.token;
-
-    if (persistedToken === null) {
-      // If there is no token, exit without performing any request
-      return thunkAPI.rejectWithValue('Unable to fetch user');
+    const token = thunkAPI.getState().auth.token;
+    if (token === null) {
+      console.log('Токена нет, уходим из fetchCurrentUser');
+      return thunkAPI.rejectWithValue();
     }
-
     try {
-      // If there is a token, add it to the HTTP header and perform the request
-      console.log(persistedToken);
-      setAuthHeader(persistedToken);
-      const res = await axios.get('users/current');
-      return res.data;
+      Loading.pulse();
+      const data = await API.currentUser(token);
+      Loading.remove();
+      return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      Loading.remove();
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const logoutUser = createAsyncThunk(
+  'user/logoutUser',
+  async (_, thunkAPI) => {
+    try {
+      Loading.pulse();
+      const token = thunkAPI.getState().auth.token;
+      const data = await API.logoutUser(token);
+      Loading.remove();
+      return data;
+    } catch (error) {
+      Loading.remove();
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );

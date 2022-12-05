@@ -1,7 +1,7 @@
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { refreshUser } from './redux/auth/operations';
+import { currentUser } from './redux/auth/operations';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -40,10 +40,9 @@ const theme = createTheme({
 function App() {
   const dispatch = useDispatch();
   const isAuth = useSelector(state => state.auth.isAuth);
-  // const isRegister = false;
 
   useEffect(() => {
-    dispatch(refreshUser());
+    dispatch(currentUser());
   }, [dispatch]);
 
   return (

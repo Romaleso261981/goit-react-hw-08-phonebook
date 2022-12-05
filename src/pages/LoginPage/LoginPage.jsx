@@ -6,7 +6,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { Typography } from '@mui/material';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import { useForm } from 'react-hook-form';
-import { logIn } from '../../redux/auth/operations';
+import { loginUser } from '../../redux/auth/operations';
 
 export const LoginPage = () => {
   const dispatch = useDispatch();
@@ -19,14 +19,14 @@ export const LoginPage = () => {
   } = useForm({
     mode: 'onChange',
     defaultValues: {
-      name: 'Roman',
-      email: 'ladiginscormag220@gmail.com',
-      password: '123456789',
+      name: '',
+      email: '',
+      password: '',
     },
   });
 
   const onSubmit = dataUser => {
-    dispatch(logIn(dataUser));
+    dispatch(loginUser(dataUser));
     reset();
   };
 

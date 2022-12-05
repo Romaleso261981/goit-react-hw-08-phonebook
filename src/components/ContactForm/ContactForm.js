@@ -1,6 +1,6 @@
 import { Notify } from 'notiflix';
 import { useSelector, useDispatch } from 'react-redux';
-import { addTask } from '../../redux/contacts/operations';
+import { createContact } from '../../redux/contacts/operations';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -26,11 +26,10 @@ export function ContactForm(props) {
   });
 
   const onSubmit = event => {
-    
     if (contacts.find(contact => contact.name === event.name)) {
       Notify.warning(`${event.name} is already in contacts`, { color: 'red' });
     } else {
-      dispatch(addTask(event));
+      dispatch(createContact(event));
       reset();
     }
   };

@@ -1,14 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { logOut } from 'redux/auth/operations';
-import { fetchTasks, addTask, deleteTask } from './operations';
+// import { Loading } from 'notiflix/build/notiflix-loading-aio';
+import { getContactList, createContact, removeContact } from './operations';
+
+export const filterSlice = createSlice({
+  name: 'filter',
+  initialState: '',
+  reducers: {
+    filterContacts: (state, { payload }) => {
+      console.log(state);
+      return payload;
+    },
+  },
+});
 
 const handlePending = state => {
-  console.log('handlePending');
   state.isLoading = true;
 };
 
 const handleRejected = (state, action) => {
-  console.log(action);
   state.isLoading = false;
   state.error = action.payload;
 };
@@ -19,38 +28,30 @@ const tasksSlice = createSlice({
     items: [],
     isLoading: false,
     error: null,
-    filter: '',
   },
   extraReducers: {
-    [fetchTasks.pending]: handlePending,
-    [addTask.pending]: handlePending,
-    [deleteTask.pending]: handlePending,
-    [fetchTasks.rejected]: handleRejected,
-    [addTask.rejected]: handleRejected,
-    [deleteTask.rejected]: handleRejected,
-    [fetchTasks.fulfilled](state, action) {
+    [getContactList.pending]: handlePending,
+    [createContact.pending]: handlePending,
+    [removeContact.pending]: handlePending,
+    [getContactList.rejected]: handleRejected,
+    [createContact.rejected]: handleRejected,
+    [removeContact.rejected]: handleRejected,
+    [getContactList.fulfilled](state, action) {
       state.isLoading = false;
       state.error = null;
       state.items = action.payload;
     },
-    [addTask.fulfilled](state, action) {
-      console.log(state.token);
-      state.isLoading = false;
+    [createContact.fulfilled](state, action) {
       state.error = null;
       state.items.push(action.payload);
     },
-    [deleteTask.fulfilled](state, action) {
+    [removeContact.fulfilled](state, action) {
       state.isLoading = false;
       state.error = null;
       const index = state.items.findIndex(
         task => task.id === action.payload.id
       );
       state.items.splice(index, 1);
-    },
-    [logOut.fulfilled](state) {
-      state.items = [];
-      state.error = null;
-      state.isLoading = false;
     },
   },
 });
