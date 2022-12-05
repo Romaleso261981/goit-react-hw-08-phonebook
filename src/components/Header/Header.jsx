@@ -19,7 +19,7 @@ const ResponsiveAppBar = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const emailUser = useSelector(state => state.auth.user.email);
   const nameUser = useSelector(state => state.auth.user.name);
-  const isAuth = useSelector(state => state.auth.isLogin);
+  const isAuth = useSelector(state => state.auth.isAuth);
   const navigate = useNavigate();
   const [navMenu, setNavMenu] = React.useState([]);
   // const [userMenu, setUserMenu] = React.useState([]);

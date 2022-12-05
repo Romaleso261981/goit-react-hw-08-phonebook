@@ -19,9 +19,9 @@ export const LoginPage = () => {
   } = useForm({
     mode: 'onChange',
     defaultValues: {
-      name: '',
-      email: '',
-      password: '',
+      name: 'Roman',
+      email: 'ladiginscormag220@gmail.com',
+      password: '123456789',
     },
   });
 

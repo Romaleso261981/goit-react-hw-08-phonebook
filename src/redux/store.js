@@ -34,7 +34,6 @@ export const store = configureStore({
     tasks: tasksReducer,
   },
   middleware,
-  devTools: process.env.NODE_ENV === 'development',
 });
 
 export const persistor = persistStore(store);

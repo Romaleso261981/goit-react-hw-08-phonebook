@@ -2,10 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 import { registerUser, logIn, logOut, refreshUser } from './operations';
 
 const initialState = {
-  user: { name: null, email: null },
+  user: {
+    name: null,
+    email: null,
+  },
   token: null,
-  isLogin: false,
-  isRegister: false,
+  error: null,
+  isAuth: false,
+  isRefreshing: false,
 };
 
 const authSlice = createSlice({
@@ -13,30 +17,32 @@ const authSlice = createSlice({
   initialState,
   extraReducers: {
     [registerUser.fulfilled](state, action) {
-      console.log(action.payload.user);
-      state.user = action.payload.user;
-      state.token = action.payload.token;
-      state.isRegister = true;
+      return { ...state, isAuth: true, ...action };
     },
     [logIn.fulfilled](state, action) {
-      state.user = action.payload.user;
-      state.token = action.payload.token;
-      state.isLogin = true;
+      return { ...state, isAuth: true, ...action };
     },
     [logOut.fulfilled](state) {
-      state.user = { name: null, email: null };
-      state.token = null;
-      state.isLogin = false;
-      state.isRegister = false;
+      return { ...state, isAuth: false, isRefreshing: false };
     },
-    [refreshUser.pending](state) {},
+    [refreshUser.pending](state) {
+      console.log('refreshUser.pending');
+      return {
+        ...state,
+        isRefreshing: false,
+      };
+    },
     [refreshUser.fulfilled](state, action) {
-      state.user = action.payload;
-      state.token = action.payload.token;
-      state.isLogin = true;
-      state.isRegister = true;
+      console.log('refreshUser.fulfilled');
+      return { ...state, isAuth: true, ...action };
     },
-    [refreshUser.rejected](state) {},
+    [refreshUser.rejected](state) {
+      console.log('refreshUser.rejected');
+      return {
+        ...state,
+        isRefreshing: false,
+      };
+    },
   },
 });
 

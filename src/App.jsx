@@ -39,10 +39,7 @@ const theme = createTheme({
 
 function App() {
   const dispatch = useDispatch();
-  const isLogin = useSelector(state => state.auth.isLogin);
-  const isRegister = useSelector(state => {
-    return state.auth.isRegister;
-  });
+  const isAuth = useSelector(state => state.auth.isAuth);
   // const isRegister = false;
 
   useEffect(() => {
@@ -50,14 +47,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div
-      style={{
-        Width: '100wv',
-        Height: '500px',
-        backgroundImage: 'url(https://source.unsplash.com/random)',
-        backgroundSize: 'cover',
-      }}
-    >
+    <>
       <ThemeProvider theme={theme}>
         <Routes>
           <Route path="/" element={<Header />}>
@@ -65,7 +55,7 @@ function App() {
             <Route
               path="/register"
               element={
-                <ProtectedRoute redirectPath="/login" isAllowed={!isRegister}>
+                <ProtectedRoute redirectPath="/login" isAllowed={!isAuth}>
                   <RegistrationForm />
                 </ProtectedRoute>
               }
@@ -73,7 +63,7 @@ function App() {
             <Route
               path="/login"
               element={
-                <ProtectedRoute redirectPath="/contacts" isAllowed={!isLogin}>
+                <ProtectedRoute redirectPath="/contacts" isAllowed={!isAuth}>
                   <LoginPage />
                 </ProtectedRoute>
               }
@@ -81,7 +71,7 @@ function App() {
             <Route
               path="/contacts"
               element={
-                <ProtectedRoute redirectPath="/login" isAllowed={isLogin}>
+                <ProtectedRoute redirectPath="/register" isAllowed={isAuth}>
                   <ContactList />
                 </ProtectedRoute>
               }
@@ -91,43 +81,8 @@ function App() {
         </Routes>
         <ToastContainer />
       </ThemeProvider>
-    </div>
+    </>
   );
 }
 
 export default App;
-
-// import { Routes, Route, Navigate } from 'react-router-dom';
-// import { currentUser } from './redux/auth/operations';
-// import { useEffect } from 'react';
-// import { useDispatch} from 'react-redux';
-// import LogIn from './MUI/LoginPage/LoginPage';
-// import HomePage from './MUI/HomePage/HomePage';
-// import RegistrationForm from './MUI/RegistrationForm/RegistrationForm';
-// // import { ProtectedRoute } from 'components/ProtectedRoute';
-// // import { ContactList } from './pages/ContactList/ContactList';
-
-// function App() {
-//   const dispatch = useDispatch();
-//   // const isLogin = useSelector(state => state.auth.isLogin);
-
-//   useEffect(() => {
-//     console.log("полетів за контактами");
-//     dispatch(currentUser());
-//   }, [dispatch]);
-
-//   return (
-//     <>
-//       <Routes>
-//         <Route path="/" element={<RegistrationForm />}>
-//           <Route path="/register" element={<RegistrationForm />}></Route>
-//           <Route path="/login" element={<LogIn />}></Route>
-//           <Route path="/contacts" element={<HomePage/>}></Route>
-//         </Route>
-//         <Route path="*" element={<Navigate to="/" />} />
-//       </Routes>
-//     </>
-//   );
-// }
-
-// export default App;
