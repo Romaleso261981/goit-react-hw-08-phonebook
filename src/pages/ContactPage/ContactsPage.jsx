@@ -27,7 +27,6 @@ const ContactsPage = () => {
           sx={{
             fontSize: 45,
             textAlign: 'center',
-            color: 'blak',
           }}
         >
           there is no contact in your phone book

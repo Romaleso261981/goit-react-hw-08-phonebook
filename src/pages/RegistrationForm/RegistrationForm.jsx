@@ -104,3 +104,5 @@ export const RegistrationForm = () => {
     </Box>
   );
 };
+
+export default RegistrationForm;

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Suspense } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -165,7 +166,9 @@ const ResponsiveAppBar = () => {
         </Container>
       </AppBar>
       <Typography component={'section'}>
-        <Outlet />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Outlet />
+        </Suspense>
       </Typography>
     </>
   );

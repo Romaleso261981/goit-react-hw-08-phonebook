@@ -1,33 +1,29 @@
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { lazy } from 'react';
 import { currentUser } from './redux/auth/operations';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { ProtectedRoute } from './ProtectedRoute';
 import Header from './components/Header/Header';
-import ContactsPage from './pages/ContactPage/ContactsPage';
-import { LoginPage } from './pages/LoginPage/LoginPage';
-import { RegistrationForm } from './pages/RegistrationForm/RegistrationForm';
-import HomePage from './pages/HomePage/HomePage';
+// import ContactsPage from './pages/ContactPage/ContactsPage';
+// import { LoginPage } from './pages/LoginPage/LoginPage';
+// import { RegistrationForm } from './pages/RegistrationForm/RegistrationForm';
+// import HomePage from './pages/HomePage/HomePage';
 import { blue } from '@mui/material/colors';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
-// const HomePage = lazy(() =>
-//   import('pages/HomePage' /* webpackChunkName: "home-page" */)
-// );
+const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
 
-// const ContactsPage = lazy(() =>
-//   import('../pages/ContactsPage' /* webpackChunkName: "contacts-page" */)
-// );
-// const RegisterPage = lazy(() =>
-//   import('../pages/RegisterPage' /* webpackChunkName: "register-page" */)
-// );
+const ContactsPage = lazy(() => import('./pages/ContactPage/ContactsPage'));
 
-// const LoginPage = lazy(() =>
-//   import('../pages/LoginPage' /* webpackChunkName: "login-page" */)
-// );
+const RegistrationForm = lazy(() =>
+  import('./pages/RegistrationForm/RegistrationForm')
+);
+
+const LoginPage = lazy(() => import('./pages/LoginPage/LoginPage'));
 
 const theme = createTheme({
   palette: {
