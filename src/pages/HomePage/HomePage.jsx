@@ -30,8 +30,7 @@ const HomePage = () => {
           alignItems: 'center',
         }}
       >
-        {/* <Button
-          // key="page"
+        <Button
           onClick={handleClickNavMenu}
           sx={{
             color: 'white',
@@ -42,7 +41,6 @@ const HomePage = () => {
           Register
         </Button>
         <Button
-          // key={page}
           sx={{
             color: 'white',
             bgcolor: 'rgb(146, 80 , 130)',
@@ -51,7 +49,7 @@ const HomePage = () => {
           onClick={handleClickNavMenu}
         >
           Login
-        </Button> */}
+        </Button>
       </Box>
     </Box>
   );
