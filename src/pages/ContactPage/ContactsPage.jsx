@@ -23,12 +23,12 @@ const ContactsPage = () => {
       ) : (
         <Typography
           sx={{
-            fontSize: 35,
+            fontSize: 45,
             textAlign: 'center',
-            color: 'blue',
+            color: 'blak',
           }}
         >
-          No contact
+          there is no contact in your phone book
         </Typography>
       )}
     </Box>
