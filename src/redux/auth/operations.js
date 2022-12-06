@@ -12,7 +12,7 @@ export const registrationUser = createAsyncThunk(
       return data;
     } catch (error) {
       Loading.remove();
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
@@ -27,7 +27,7 @@ export const loginUser = createAsyncThunk(
       return data;
     } catch (error) {
       Loading.remove();
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
@@ -47,7 +47,7 @@ export const currentUser = createAsyncThunk(
       return data;
     } catch (error) {
       Loading.remove();
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
@@ -63,7 +63,7 @@ export const logoutUser = createAsyncThunk(
       return data;
     } catch (error) {
       Loading.remove();
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
