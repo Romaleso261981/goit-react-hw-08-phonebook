@@ -109,7 +109,6 @@ const ResponsiveAppBar = () => {
                   sx={{ p: 0, size: 'large' }}
                 >
                   <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                  {/* <InsertEmoticonSharpIcon sx={{size: "large"}} ></InsertEmoticonSharpIcon> */}
                 </IconButton>
               </Tooltip>
               {isAuth ? (

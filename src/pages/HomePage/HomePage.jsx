@@ -14,16 +14,7 @@ const HomePage = () => {
       position="relative"
       component="div"
       sx={{
-        '& > :not(style)': { mb: 2, width: '100%' },
-        maxWidth: 800,
-        minHeight: 300,
-        margin: '20px auto',
-        borderRadius: 2,
-        boxShadow: '0px 0px 15px 1px rgba(143, 144, 139, 0.6)',
-        padding: '20px',
-        backgroundColor: 'rgba(255, 255, 255, 0.8)',
         alignItems: 'center',
-        boxSizing: 'border-box',
       }}
     >
       <Typography sx={{ fontSize: 35, textAlign: 'center' }}>
@@ -39,7 +30,7 @@ const HomePage = () => {
           alignItems: 'center',
         }}
       >
-        <Button
+        {/* <Button
           // key="page"
           onClick={handleClickNavMenu}
           sx={{
@@ -60,7 +51,7 @@ const HomePage = () => {
           onClick={handleClickNavMenu}
         >
           Login
-        </Button>
+        </Button> */}
       </Box>
     </Box>
   );

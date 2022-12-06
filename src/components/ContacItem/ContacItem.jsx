@@ -8,13 +8,10 @@ import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Typography } from '@mui/material';
+
 export const ContactItem = () => {
   const contacts = useSelector(state => state.tasks.items);
-  const log = useSelector(state => state);
-  console.log(log);
-  // const filter = useSelector(state => state.tasks.filter);
   const dispatch = useDispatch();
-  // const [filterContactList, setFilterContactList] = useState(contacts);
 
   useEffect(() => {
     dispatch(getContactList());
@@ -25,26 +22,11 @@ export const ContactItem = () => {
     dispatch(removeContact(currentId));
   };
 
-  // const contactsFilter = () => {
-  //   return contacts.filter(({ name }) => {
-  //     return name.toLowerCase().includes(filter.toLowerCase().trim());
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   setFilterContactList(contactsFilter());
-  // }, [filter]);
-
-  // useEffect(() => {
-  //   setFilterContactList(contacts);
-  // }, [contacts]);
-
   return (
     <>
       <Box
         sx={{
-          '& > :not(style)': { mb: 2, width: '100%' },
-          maxWidth: 400,
+          maxWidth: 600,
           margin: '20px auto',
           borderRadius: 2,
           boxShadow: '0px 0px 15px 1px rgba(143, 144, 139, 0.6)',
@@ -54,32 +36,28 @@ export const ContactItem = () => {
           boxSizing: 'border-box',
         }}
       >
+        {contacts.length > 0 && (
+          <Typography sx={{ fontSize: 28 }}>Contacts</Typography>
+        )}
         <List sx={{ width: '100%' }}>
-          <List sx={{ width: '100%', maxWidth: 360 }}>
-            <>
-              {contacts.length > 0 && (
-                <Typography sx={{ fontSize: 28 }}>Contacts</Typography>
-              )}
-              {contacts.length > 0 &&
-                contacts.map(({ name, number, id }) => (
-                  <ListItem
-                    key={id}
-                    disableGutters
-                    secondaryAction={
-                      <IconButton
-                        aria-label="comment"
-                        id={id}
-                        onClick={handleDeleteBtn}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    }
+          {contacts.length > 0 &&
+            contacts.map(({ name, number, id }) => (
+              <ListItem
+                key={id}
+                disableGutters
+                secondaryAction={
+                  <IconButton
+                    aria-label="comment"
+                    id={id}
+                    onClick={handleDeleteBtn}
                   >
-                    <ListItemText primary={`${name}:`} secondary={number} />
-                  </ListItem>
-                ))}
-            </>
-          </List>
+                    <DeleteIcon />
+                  </IconButton>
+                }
+              >
+                <ListItemText primary={`${name}:`} secondary={number} />
+              </ListItem>
+            ))}
         </List>
       </Box>
     </>

@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { ProtectedRoute } from './ProtectedRoute';
 import Header from './components/Header/Header';
-import ContactList from './components/ContactList/ContactList';
+import ContactsPage from './pages/ContactPage/ContactsPage';
 import { LoginPage } from './pages/LoginPage/LoginPage';
 import { RegistrationForm } from './pages/RegistrationForm/RegistrationForm';
 import HomePage from './pages/HomePage/HomePage';
@@ -71,7 +71,7 @@ function App() {
               path="/contacts"
               element={
                 <ProtectedRoute redirectPath="/register" isAllowed={isAuth}>
-                  <ContactList />
+                  <ContactsPage />
                 </ProtectedRoute>
               }
             ></Route>
