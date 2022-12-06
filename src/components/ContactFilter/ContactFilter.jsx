@@ -1,37 +1,16 @@
-// import { useDispatch } from 'react-redux';
-// import { useEffect } from 'react';
-// import { getContactList } from '../../redux/contacts/operations';
-// import { filterSlice } from '../../redux/contacts/slice';
+import { useDispatch, useSelector } from 'react-redux';
+import { filteredContacts } from '../../redux/contacts/slice';
 import { Box, TextField } from '@mui/material';
+import { Typography } from '@mui/material';
 
 export const ContactFilter = () => {
-  // const contacts = useSelector(state => state.tasks.items);
-  const filter = '';
-  // const dispatch = useDispatch();
-  // const [filterContactList, setFilterContactList] = useState(contacts);
+  const dispatch = useDispatch();
+  const filter = useSelector(state => state.tasks.filter);
 
-  // useEffect(() => {
-  //   dispatch(getContactList());
-  // }, [dispatch]);
-
-  // const contactsFilter = () => {
-  //   return contacts.filter(({ name }) => {
-  //     return name.toLowerCase().includes(filter.toLowerCase().trim());
-  //   });
-  // };
-
-  //   useEffect(() => {
-  //     setFilterContactList(contactsFilter());
-  //   }, [filter]);
-
-  // useEffect(() => {
-  //   setFilterContactList(contacts);
-  // }, [contacts]);
-
-  // const handleChange = event => {
-  //   const { value } = event.target;
-  //   dispatch(filterSlice(value));
-  // };
+  const handleChange = event => {
+    const { value } = event.target;
+    dispatch(filteredContacts(value));
+  };
 
   return (
     <>
@@ -49,6 +28,7 @@ export const ContactFilter = () => {
           boxSizing: 'border-box',
         }}
       >
+        <Typography sx={{ fontSize: 28 }}>Contacts</Typography>
         <TextField
           sx={{
             color: 'rgb(194, 120, 118)',
@@ -58,6 +38,7 @@ export const ContactFilter = () => {
           id="contactFilter"
           label="Filter"
           value={filter}
+          onChange={handleChange}
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           fullWidth
         />

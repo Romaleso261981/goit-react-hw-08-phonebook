@@ -20,7 +20,6 @@ export const createContact = createAsyncThunk(
     const token = thunkAPI.getState().auth.token;
     try {
       const data = await API.addContact(obj, token);
-      console.log(data);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

@@ -10,7 +10,14 @@ import { Typography } from '@mui/material';
 
 export const ContactItem = () => {
   const contacts = useSelector(state => state.tasks.items);
+  const filter = useSelector(state => state.tasks.items);
   const dispatch = useDispatch();
+
+  const contactsFilter = () => {
+    return contacts.filter(({ name }) => name.includes(filter));
+  };
+
+  const filtrContacts = contactsFilter();
 
   const handleDeleteBtn = event => {
     const currentId = event.currentTarget.id;
@@ -31,7 +38,7 @@ export const ContactItem = () => {
           boxSizing: 'border-box',
         }}
       >
-        {contacts.length > 0 && (
+        {filtrContacts.length > 0 && (
           <Typography sx={{ fontSize: 28 }}>Contacts</Typography>
         )}
         <List sx={{ width: '100%' }}>

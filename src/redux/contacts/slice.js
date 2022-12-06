@@ -15,8 +15,8 @@ export const filterSlice = createSlice({
   name: 'filter',
   initialState: '',
   reducers: {
-    filterContacts: (_, { payload }) => {
-      return payload;
+    filterContacts: (state, { payload }) => {
+      return { ...state, isAuth: true };
     },
   },
 });
@@ -25,8 +25,14 @@ const tasksSlice = createSlice({
   name: 'tasks',
   initialState: {
     items: [],
+    filter: '',
     isLoading: false,
     error: null,
+  },
+  reducers: {
+    filteredContacts(state, { payload }) {
+      state.filter = payload;
+    },
   },
   extraReducers: {
     [getContactList.pending]: handlePending,
@@ -52,5 +58,7 @@ const tasksSlice = createSlice({
     },
   },
 });
+
+export const { filteredContacts } = tasksSlice.actions;
 
 export const tasksReducer = tasksSlice.reducer;

@@ -8,10 +8,12 @@ import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 
 const ContactsPage = () => {
+  const filter = useSelector(state => state.tasks.items);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getContactList());
-  }, [dispatch]);
+  }, [dispatch, filter]);
 
   const contacts = useSelector(state => state.tasks.items);
   return (
