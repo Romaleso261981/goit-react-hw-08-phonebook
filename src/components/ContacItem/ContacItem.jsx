@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { removeContact, getContactList } from '../../redux/contacts/operations';
+import { removeContact } from '../../redux/contacts/operations';
 import { Box } from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -12,10 +11,6 @@ import { Typography } from '@mui/material';
 export const ContactItem = () => {
   const contacts = useSelector(state => state.tasks.items);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getContactList());
-  }, [dispatch]);
 
   const handleDeleteBtn = event => {
     const currentId = event.currentTarget.id;
