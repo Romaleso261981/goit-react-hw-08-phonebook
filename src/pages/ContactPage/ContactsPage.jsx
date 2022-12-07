@@ -4,7 +4,7 @@ import { ContactForm } from '../../components/ContactForm/ContactForm';
 import { ContactItem } from '../../components/ContacItem/ContacItem';
 import { ContactFilter } from '../../components/ContactFilter/ContactFilter';
 import { getContactList } from '../../redux/contacts/contactsOperations';
-import { selectFilterdContacts } from '../../redux/selectors';
+import { selectFilterdContacts, selectContacts } from '../../redux/selectors';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 
@@ -15,12 +15,13 @@ const ContactsPage = () => {
     dispatch(getContactList());
   }, [dispatch]);
 
-  const contacts = useSelector(selectFilterdContacts);
+  const filterdContacts = useSelector(selectFilterdContacts);
+  const contacts = useSelector(selectContacts);
   return (
     <Box>
       <ContactForm />
       {contacts.length > 0 && <ContactFilter />}
-      {contacts.length > 0 ? (
+      {filterdContacts.length > 0 ? (
         <ContactItem />
       ) : (
         <Typography

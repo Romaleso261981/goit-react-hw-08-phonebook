@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { filterReducer } from '../../redux/filter/filterSlice';
 import { selectFilter } from '../../redux/selectors';
+import { setFilter } from '../../redux/filter/filterSlice';
 import { Box, TextField } from '@mui/material';
 import { Typography } from '@mui/material';
 
@@ -8,9 +8,9 @@ export const ContactFilter = () => {
   const dispatch = useDispatch();
   const filter = useSelector(selectFilter);
 
-  const handleChange = event => {
-    const { value } = event.target;
-    dispatch(filterReducer(value));
+  const handleChange = evt => {
+    const { value } = evt.target;
+    dispatch(setFilter(value));
   };
 
   return (

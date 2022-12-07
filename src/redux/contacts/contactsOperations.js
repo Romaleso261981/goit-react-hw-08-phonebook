@@ -32,9 +32,11 @@ export const removeContact = createAsyncThunk(
   async (id, thunkAPI) => {
     const token = thunkAPI.getState().auth.token;
     try {
+      console.log('try');
       await API.deleteContact(id, token);
       return id;
     } catch (error) {
+      console.log(error);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
