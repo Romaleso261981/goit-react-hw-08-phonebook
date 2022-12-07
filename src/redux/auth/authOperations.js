@@ -6,13 +6,11 @@ export const registrationUser = createAsyncThunk(
   'user/registrationUser',
   async (userData, thunkAPI) => {
     try {
-      console.log('try');
       Loading.pulse();
       const data = await API.signupUser(userData);
       Loading.remove();
       return data;
     } catch (error) {
-      console.log('catch');
       Loading.remove();
       return thunkAPI.rejectWithValue(error.message);
     }
