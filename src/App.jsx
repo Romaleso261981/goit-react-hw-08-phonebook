@@ -41,7 +41,14 @@ function App() {
       <ThemeProvider theme={theme}>
         <Routes>
           <Route path="/" element={<Header />}>
-            <Route index="/" element={<HomePage />} />
+            <Route
+              index="/"
+              element={
+                <ProtectedRoute redirectPath="/contacts" isAllowed={!isLogin}>
+                  <HomePage />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/register"
               element={
