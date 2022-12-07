@@ -1,15 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { filteredContacts } from '../../redux/contacts/slice';
+import { filterReducer } from '../../redux/filter/filterSlice';
+import { selectFilter } from '../../redux/selectors';
 import { Box, TextField } from '@mui/material';
 import { Typography } from '@mui/material';
 
 export const ContactFilter = () => {
   const dispatch = useDispatch();
-  const filter = useSelector(state => state.tasks.filter);
+  const filter = useSelector(selectFilter);
 
   const handleChange = event => {
     const { value } = event.target;
-    dispatch(filteredContacts(value));
+    dispatch(filterReducer(value));
   };
 
   return (

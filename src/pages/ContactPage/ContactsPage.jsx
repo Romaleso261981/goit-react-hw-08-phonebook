@@ -1,21 +1,21 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { ContactForm } from '../../components/ContactForm/ContactForm';
 import { ContactItem } from '../../components/ContacItem/ContacItem';
 import { ContactFilter } from '../../components/ContactFilter/ContactFilter';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getContactList } from '../../redux/contacts/operations';
+import { getContactList } from '../../redux/contacts/contactsOperations';
+import { selectFilterdContacts } from '../../redux/selectors';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 
 const ContactsPage = () => {
-  const filter = useSelector(state => state.tasks.items);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getContactList());
-  }, [dispatch, filter]);
+  }, [dispatch]);
 
-  const contacts = useSelector(state => state.tasks.items);
+  const contacts = useSelector(selectFilterdContacts);
   return (
     <Box>
       <ContactForm />

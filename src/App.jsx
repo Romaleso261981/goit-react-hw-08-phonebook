@@ -1,19 +1,14 @@
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { lazy } from 'react';
-import { currentUser } from './redux/auth/operations';
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { lazy, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Routes, Route } from 'react-router-dom';
 import { ProtectedRoute } from './ProtectedRoute';
+import { currentUser } from './redux/auth/authOperations';
+import { selectIsLogin } from './redux/selectors.js';
 import Header from './components/Header/Header';
-// import ContactsPage from './pages/ContactPage/ContactsPage';
-// import { LoginPage } from './pages/LoginPage/LoginPage';
-// import { RegistrationForm } from './pages/RegistrationForm/RegistrationForm';
-// import HomePage from './pages/HomePage/HomePage';
+import { ToastContainer } from 'react-toastify';
 import { blue } from '@mui/material/colors';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import 'react-toastify/dist/ReactToastify.css';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
 
@@ -35,7 +30,7 @@ const theme = createTheme({
 
 function App() {
   const dispatch = useDispatch();
-  const isAuth = useSelector(state => state.auth.isAuth);
+  const isLogin = useSelector(selectIsLogin);
 
   useEffect(() => {
     dispatch(currentUser());
@@ -50,7 +45,7 @@ function App() {
             <Route
               path="/register"
               element={
-                <ProtectedRoute redirectPath="/login" isAllowed={!isAuth}>
+                <ProtectedRoute redirectPath="/login" isAllowed={!isLogin}>
                   <RegistrationForm />
                 </ProtectedRoute>
               }
@@ -58,7 +53,7 @@ function App() {
             <Route
               path="/login"
               element={
-                <ProtectedRoute redirectPath="/contacts" isAllowed={!isAuth}>
+                <ProtectedRoute redirectPath="/contacts" isAllowed={!isLogin}>
                   <LoginPage />
                 </ProtectedRoute>
               }
@@ -66,13 +61,13 @@ function App() {
             <Route
               path="/contacts"
               element={
-                <ProtectedRoute redirectPath="/register" isAllowed={isAuth}>
+                <ProtectedRoute redirectPath="/register" isAllowed={isLogin}>
                   <ContactsPage />
                 </ProtectedRoute>
               }
             ></Route>
           </Route>
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route />
         </Routes>
         <ToastContainer />
       </ThemeProvider>

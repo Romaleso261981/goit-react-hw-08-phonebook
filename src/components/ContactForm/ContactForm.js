@@ -1,15 +1,16 @@
-import { Notify } from 'notiflix';
-import { useSelector, useDispatch } from 'react-redux';
-import { createContact } from '../../redux/contacts/operations';
+import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import { createContact } from '../../redux/contacts/contactsOperations';
+import { selectContacts } from '../../redux/selectors';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SaveIcon from '@mui/icons-material/Save';
 import { Typography } from '@mui/material';
-import { useForm } from 'react-hook-form';
+import { Notify } from 'notiflix';
 
 export function ContactForm(props) {
-  const contacts = useSelector(state => state.tasks.items);
+  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
   const {

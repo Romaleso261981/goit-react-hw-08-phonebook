@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { removeContact } from '../../redux/contacts/operations';
+import { removeContact } from '../../redux/contacts/contactsOperations';
+import { selectFilter, selectContacts } from '../../redux/selectors';
 import { Box } from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -9,8 +10,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Typography } from '@mui/material';
 
 export const ContactItem = () => {
-  const contacts = useSelector(state => state.tasks.items);
-  const filter = useSelector(state => state.tasks.items);
+  const contacts = useSelector(selectContacts);
+  const filter = useSelector(selectFilter);
   const dispatch = useDispatch();
 
   const contactsFilter = () => {
