@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Outlet } from 'react-router-dom';
 import { logoutUser } from '../../redux/auth/authOperations';
-import { selectIsLogin } from '../../redux/selectors';
+import { selectIsLogin, selectUser } from '../../redux/selectors';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -18,13 +18,13 @@ import MenuItem from '@mui/material/MenuItem';
 
 const ResponsiveAppBar = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const emailUser = useSelector(state => state.auth.user.email);
-  const nameUser = useSelector(state => state.auth.user.name);
-  const isAuth = useSelector(selectIsLogin);
-  const navigate = useNavigate();
   const [navMenu, setNavMenu] = React.useState([]);
-  // const [userMenu, setUserMenu] = React.useState([]);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+  const emailUser = user.email;
+  const nameUser = user.name;
+  const isAuth = useSelector(selectIsLogin);
 
   React.useEffect(() => {
     if (isAuth) {
