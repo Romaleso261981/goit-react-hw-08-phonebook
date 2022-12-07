@@ -41,7 +41,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Routes>
           <Route path="/" element={<Header />}>
-            <Route path="/" element={<HomePage />}></Route>
+            <Route index="/" element={<HomePage />} />
             <Route
               path="/register"
               element={
@@ -49,7 +49,7 @@ function App() {
                   <RegistrationForm />
                 </ProtectedRoute>
               }
-            ></Route>
+            />
             <Route
               path="/login"
               element={
@@ -57,7 +57,7 @@ function App() {
                   <LoginPage />
                 </ProtectedRoute>
               }
-            ></Route>
+            />
             <Route
               path="/contacts"
               element={
@@ -65,9 +65,8 @@ function App() {
                   <ContactsPage />
                 </ProtectedRoute>
               }
-            ></Route>
+            />
           </Route>
-          <Route />
         </Routes>
         <ToastContainer />
       </ThemeProvider>
