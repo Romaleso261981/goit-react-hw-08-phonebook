@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { removeContact } from '../../redux/contacts/contactsOperations';
-import { selectFilter, selectContacts } from '../../redux/selectors';
+import { selectFilterdContacts } from '../../redux/selectors';
 import { Box } from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -10,15 +10,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Typography } from '@mui/material';
 
 export const ContactItem = () => {
-  const contacts = useSelector(selectContacts);
-  const filter = useSelector(selectFilter);
   const dispatch = useDispatch();
 
-  const contactsFilter = () => {
-    return contacts.filter(({ name }) => name.includes(filter));
-  };
-
-  const filtrContacts = contactsFilter();
+  const filtrContacts = useSelector(selectFilterdContacts);
 
   const handleDeleteBtn = event => {
     const currentId = event.currentTarget.id;
@@ -43,8 +37,8 @@ export const ContactItem = () => {
           <Typography sx={{ fontSize: 28 }}>Contacts</Typography>
         )}
         <List sx={{ width: '100%' }}>
-          {contacts.length > 0 &&
-            contacts.map(({ name, number, id }) => (
+          {filtrContacts.length > 0 &&
+            filtrContacts.map(({ name, number, id }) => (
               <ListItem
                 key={id}
                 disableGutters
